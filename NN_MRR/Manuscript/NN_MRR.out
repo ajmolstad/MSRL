@@ -1,0 +1,25 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{The multivariate square-root lasso}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Review of the univariate square-root lasso}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Implicit covariance estimation}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Statistical properties of the multivariate square-root lasso}{section.2}% 5
+\BOOKMARK [1][-]{section.3}{Computation}{}% 6
+\BOOKMARK [2][-]{subsection.3.1}{Properties of the solution}{section.3}% 7
+\BOOKMARK [2][-]{subsection.3.2}{Prox-linear ADMM}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.3}{Fast first order algorithm for large n}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.4}{Computational complexity and tuning parameter selection}{section.3}% 10
+\BOOKMARK [1][-]{section.4}{Simulation studies}{}% 11
+\BOOKMARK [2][-]{subsection.4.1}{Data generating models}{section.4}% 12
+\BOOKMARK [2][-]{subsection.4.2}{Competing methods}{section.4}% 13
+\BOOKMARK [2][-]{subsection.4.3}{Results}{section.4}% 14
+\BOOKMARK [2][-]{subsection.4.4}{Theoretical tuning results}{section.4}% 15
+\BOOKMARK [1][-]{section.5}{Glimoblastoma multiforme application}{}% 16
+\BOOKMARK [1][-]{section.6}{Discussion}{}% 17
+\BOOKMARK [1][-]{section.1}{Proofs of Proposition 1 and Theorem 1}{}% 18
+\BOOKMARK [1][-]{section.2}{Additional simulation results}{}% 19
+\BOOKMARK [2][-]{subsection.2.1}{Weighted prediction error results}{section.2}% 20
+\BOOKMARK [2][-]{subsection.2.2}{Model 1 and 2 with q varying}{section.2}% 21
+\BOOKMARK [1][-]{section.3}{Computational details}{}% 22
+\BOOKMARK [2][-]{subsection.3.1}{Derivation of proximal ADMM \040update}{section.3}% 23
+\BOOKMARK [2][-]{subsection.3.2}{Stochastic approximation of the gradient}{section.3}% 24
+\BOOKMARK [2][-]{subsection.3.3}{Method for refitting with unstructured covariance}{section.3}% 25
