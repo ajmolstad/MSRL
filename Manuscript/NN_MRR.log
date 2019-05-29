@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  29 MAY 2019 16:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  29 MAY 2019 16:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -418,9 +418,15 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 79.
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 79.
 
-LaTeX Warning: No \author given.
-
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 79.
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <7> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 79.
 
 Underfull \hbox (badness 10000) in paragraph at lines 80--81
 
@@ -452,8 +458,9 @@ OMS/cmsy/m/n/12 G[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 ^^L; \OT1/cmr/m/n/12 ^^H[]
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.307 \begin{prop}\citep
-                        {deng2016global}]
+l.306 T
+       his variation of the alternating direction method of multipliers algo...
+]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
 put line 321.
 
@@ -466,12 +473,6 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 337.
 
 [15] [16] [17] [18] [19]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 431.
-
-
-(/usr/local/texlive/2015/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 431.
  [20] [21]
@@ -527,7 +528,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 [22] [23 <./Plots/NormalHet_AR1_ModelErr_April.pdf> <./Plots/NormalHet_Const_Mo
 delErr_April.pdf> <./Plots/Vert_Legend.pdf> <./Plots/NormalHet_Dense_ModelErr_A
 pril.pdf> <./Plots/THet_AR1_ModelErr_April.pdf>] [24]
-<Plots/NormalHet_AR1_ModelErr_TP_April.pdf, id=536, 230.8625pt x 165.61874pt>
+<Plots/NormalHet_AR1_ModelErr_TP_April.pdf, id=537, 230.8625pt x 165.61874pt>
 File: Plots/NormalHet_AR1_ModelErr_TP_April.pdf Graphic file (type pdf)
 
 <use Plots/NormalHet_AR1_ModelErr_TP_April.pdf>
@@ -535,30 +536,25 @@ Package pdftex.def Info: Plots/NormalHet_AR1_ModelErr_TP_April.pdf used on inpu
 t line 523.
 (pdftex.def)             Requested size: 227.62204pt x 163.29337pt.
 
-<Plots/NormalHet_Const_ModelErr_TP_April.pdf, id=537, 230.8625pt x 165.61874pt>
+<Plots/NormalHet_Const_ModelErr_TP_April.pdf, id=538, 230.8625pt x 165.61874pt>
 File: Plots/NormalHet_Const_ModelErr_TP_April.pdf Graphic file (type pdf)
 <use Plots/NormalHet_Const_ModelErr_TP_April.pdf>
 Package pdftex.def Info: Plots/NormalHet_Const_ModelErr_TP_April.pdf used on in
 put line 523.
 (pdftex.def)             Requested size: 227.62204pt x 163.29337pt.
 
-<Plots/TP_LegendGet.pdf, id=538, 440.4178pt x 68.15839pt>
+<Plots/TP_LegendGet.pdf, id=539, 440.4178pt x 68.15839pt>
 File: Plots/TP_LegendGet.pdf Graphic file (type pdf)
 
 <use Plots/TP_LegendGet.pdf>
 Package pdftex.def Info: Plots/TP_LegendGet.pdf used on input line 525.
 (pdftex.def)             Requested size: 455.24408pt x 70.4535pt.
- [25 <./Plots/NormalHet_AR1_ModelErr_TP_April.pdf> <./Plots/NormalHet_Const_Mod
-elErr_TP_April.pdf> <./Plots/TP_LegendGet.pdf>]
-[26] [27] [28] (./NN_MRR.bbl
+ [25] [26 <./Plots/NormalHet_AR1_ModelErr_TP_April.pdf> <./Plots/NormalHet_Cons
+t_ModelErr_TP_April.pdf> <./Plots/TP_LegendGet.pdf>] [27] [28] (./NN_MRR.bbl
 LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 24.
- [29] [30] [31]) [32]
-
-LaTeX Warning: No \author given.
-
-pdfTeX warning (ext4): destination with the same identifier (name{section.1}) h
-as been already used, duplicate ignored
+ [29] [30] [31]) [32]pdfTeX warning (ext4): destination with the same identifie
+r (name{section.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.598 ...on{Proofs of Proposition 1 and Theorem 1}
@@ -567,7 +563,7 @@ ation with the same identifier (name{page.1}) has been already used, duplicate
 ignored
 <to be read again> 
                    \relax 
-l.610 \end{lemma}
+l.604 \end{lemma}
                   [1
 
 ]pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has
@@ -651,7 +647,7 @@ ignored
                    \relax 
 l.757 
        [9]
-<Plots/NormalHet_AR1_PredErr_April.pdf, id=764, 230.8625pt x 165.61874pt>
+<Plots/NormalHet_AR1_PredErr_April.pdf, id=765, 230.8625pt x 165.61874pt>
 File: Plots/NormalHet_AR1_PredErr_April.pdf Graphic file (type pdf)
 
 <use Plots/NormalHet_AR1_PredErr_April.pdf>
@@ -659,7 +655,7 @@ Package pdftex.def Info: Plots/NormalHet_AR1_PredErr_April.pdf used on input li
 ne 761.
 (pdftex.def)             Requested size: 196.32384pt x 140.84229pt.
 
-<Plots/NormalHet_Const_PredErr_April.pdf, id=765, 230.8625pt x 165.61874pt>
+<Plots/NormalHet_Const_PredErr_April.pdf, id=766, 230.8625pt x 165.61874pt>
 File: Plots/NormalHet_Const_PredErr_April.pdf Graphic file (type pdf)
 
 <use Plots/NormalHet_Const_PredErr_April.pdf>
@@ -674,7 +670,7 @@ Package pdftex.def Info: Plots/Vert_Legend.pdf used on input line 761.
 Overfull \vbox (38.39442pt too high) detected at line 761
  []
 
-<Plots/NormalHet_Dense_PredErr_April.pdf, id=766, 230.8625pt x 165.61874pt>
+<Plots/NormalHet_Dense_PredErr_April.pdf, id=767, 230.8625pt x 165.61874pt>
 File: Plots/NormalHet_Dense_PredErr_April.pdf Graphic file (type pdf)
 
 <use Plots/NormalHet_Dense_PredErr_April.pdf>
@@ -682,7 +678,7 @@ Package pdftex.def Info: Plots/NormalHet_Dense_PredErr_April.pdf used on input
 line 763.
 (pdftex.def)             Requested size: 196.32384pt x 140.84229pt.
 
-<Plots/THet_AR1_PredErr_April.pdf, id=767, 230.8625pt x 165.61874pt>
+<Plots/THet_AR1_PredErr_April.pdf, id=768, 230.8625pt x 165.61874pt>
 File: Plots/THet_AR1_PredErr_April.pdf Graphic file (type pdf)
 
 <use Plots/THet_AR1_PredErr_April.pdf>
@@ -708,7 +704,7 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 770.
 
-<Plots/NormalHet_qAR1_ModelErr_April.pdf, id=769, 230.8625pt x 165.61874pt>
+<Plots/NormalHet_qAR1_ModelErr_April.pdf, id=770, 230.8625pt x 165.61874pt>
 File: Plots/NormalHet_qAR1_ModelErr_April.pdf Graphic file (type pdf)
 
 <use Plots/NormalHet_qAR1_ModelErr_April.pdf>
@@ -716,7 +712,7 @@ Package pdftex.def Info: Plots/NormalHet_qAR1_ModelErr_April.pdf used on input
 line 774.
 (pdftex.def)             Requested size: 184.9429pt x 132.67712pt.
 
-<Plots/NormalHet_qConst_ModelErr_April.pdf, id=770, 230.8625pt x 165.61874pt>
+<Plots/NormalHet_qConst_ModelErr_April.pdf, id=771, 230.8625pt x 165.61874pt>
 File: Plots/NormalHet_qConst_ModelErr_April.pdf Graphic file (type pdf)
 
 <use Plots/NormalHet_qConst_ModelErr_April.pdf>
@@ -731,7 +727,7 @@ Package pdftex.def Info: Plots/Vert_Legend.pdf used on input line 774.
 Overfull \vbox (38.39442pt too high) detected at line 774
  []
 
-<Plots/NormalHet_qAR1_PredErr_April.pdf, id=771, 230.8625pt x 165.61874pt>
+<Plots/NormalHet_qAR1_PredErr_April.pdf, id=772, 230.8625pt x 165.61874pt>
 File: Plots/NormalHet_qAR1_PredErr_April.pdf Graphic file (type pdf)
 
 <use Plots/NormalHet_qAR1_PredErr_April.pdf>
@@ -739,7 +735,7 @@ Package pdftex.def Info: Plots/NormalHet_qAR1_PredErr_April.pdf used on input l
 ine 776.
 (pdftex.def)             Requested size: 196.32384pt x 140.84229pt.
 
-<Plots/NormalHet_qConst_PredErr_April.pdf, id=772, 230.8625pt x 165.61874pt>
+<Plots/NormalHet_qConst_PredErr_April.pdf, id=773, 230.8625pt x 165.61874pt>
 File: Plots/NormalHet_qConst_PredErr_April.pdf Graphic file (type pdf)
 
 <use Plots/NormalHet_qConst_PredErr_April.pdf>
@@ -843,13 +839,13 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 827.
 ### semi simple group (level 1) entered at line 62 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 8521 strings out of 493089
- 128592 string characters out of 6134842
- 237172 words of memory out of 5000000
- 11743 multiletter control sequences out of 15000+600000
- 15102 words of font info for 58 fonts, out of 8000000 for 9000
+ 8531 strings out of 493089
+ 128708 string characters out of 6134842
+ 235172 words of memory out of 5000000
+ 11750 multiletter control sequences out of 15000+600000
+ 16056 words of font info for 62 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 36i,16n,38p,1532b,1485s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,16n,38p,1532b,1484s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmbx10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmbx12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/c
@@ -863,15 +859,16 @@ b></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><
 /usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></us
 r/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr
 /local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/l
-ocal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/loc
-al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/loca
-l/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local
-/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/l
-ocal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on NN_MRR.pdf (46 pages, 489064 bytes).
+ocal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/loc
+al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local
+/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/
+texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/t
+exlive/2015/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/loc
+al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on NN_MRR.pdf (46 pages, 497034 bytes).
 PDF statistics:
- 941 PDF objects out of 1000 (max. 8388607)
- 808 compressed objects within 9 object streams
+ 945 PDF objects out of 1000 (max. 8388607)
+ 811 compressed objects within 9 object streams
  134 named destinations out of 1000 (max. 500000)
  281 words of extra memory for PDF output out of 10000 (max. 10000000)
 
