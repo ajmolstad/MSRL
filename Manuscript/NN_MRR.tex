@@ -203,8 +203,8 @@ Remark 1 suggests that we can solve the joint convex optimization problem \eqref
 \subsection{Statistical properties of the multivariate square-root lasso}
 We establish an error bound for $\hat{\beta} - \beta_*$ which allows $p$ and $q$ to grow with $n$. In obtaining this bound we prove that \eqref{eq:MSRL}, like the univariate square-root lasso, is pivotal with respect to $\Omega_*$. For concreteness, we focus on \eqref{eq:MSRL} with $\mathcal{P}(\beta) = \sum_{j,k}|\beta_{j,k}|$. We assume that the regression coefficient matrix $\beta_*$ has $s \geq 1$ nonzero entries, whose indices are denoted by the set $\mathcal{S}$. In addition, we treat $X$ as fixed and assume its columns have been normalized so that $\|X_j\|_2 = 1$ for $j = 1, \dots, p$. Define $\bar{c} = (c+1)/(c-1)$. We will require the following assumptions: 
 \begin{itemize}
- \item[] \textbf{A1.} The residual matrix $\mathcal{E} = Y - X\beta_*$ has $q$ nonzero singular values almost surely. 
- \item[]\textbf{A2.} The distribution of the residual matrix $\mathcal{E}$ is left-spherical, i.e., for any orthogonal matrix $O_n^{(n)} \in \mathbb{R}^{n \times n}$, 
+ \item[] \textbf{A1.} The error matrix $\mathcal{E} = Y - X\beta_*$ has $q$ nonzero singular values almost surely. 
+ \item[]\textbf{A2.} The distribution of the error matrix $\mathcal{E}$ is left-spherical, i.e., for any orthogonal matrix $O_n^{(n)} \in \mathbb{R}^{n \times n}$, 
 $O_n^{(n)} \mathcal{E}$ has the same matrix-variate distribution as $\mathcal{E}$. 
 % \item[]\textbf{A3.} There exists a positive constant $\kappa_{\mathcal{E},c}$ such that  
 \end{itemize}
