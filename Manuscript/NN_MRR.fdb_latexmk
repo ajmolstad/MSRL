@@ -1,14 +1,14 @@
 # Fdb version 3
-["bibtex NN_MRR"] 1559270057 "NN_MRR.aux" "NN_MRR.bbl" "NN_MRR" 1559278251
+["bibtex NN_MRR"] 1559321902 "NN_MRR.aux" "NN_MRR.bbl" "NN_MRR" 1559322528
   "/usr/local/texlive/2015/texmf-dist/bibtex/bst/base/apalike.bst" 1292289607 24635 604dafcc79f521a11ea73e506e1fbd98 ""
-  "NN_MRR.aux" 1559278000 13813 9659bf33ff0f27ae3c6f0df2d72ed237 ""
+  "NN_MRR.aux" 1559322103 13813 c8f621d1d653d9e17a0e907eab57c033 ""
   "NN_MRR.bcf" 0 -1 0 ""
   "NN_MRR.bib" 1559158603 13184 03865cd7f2b6b95bfbce658cbbb71b56 ""
   (generated)
-  "NN_MRR.blg"
   "NN_MRR.bbl"
-["pdflatex"] 1559277999 "NN_MRR.tex" "NN_MRR.pdf" "NN_MRR" 1559278251
-  "./NN_MRR.out" 1559278001 1850 0828f2d8ef3971295983eaa6edb94ffa ""
+  "NN_MRR.blg"
+["pdflatex"] 1559322102 "NN_MRR.tex" "NN_MRR.pdf" "NN_MRR" 1559322528
+  "./NN_MRR.out" 1559322103 1850 0828f2d8ef3971295983eaa6edb94ffa ""
   "./Plots/NormalHet_AR1_ModelErr_April.pdf" 1558047258 5525 8bc1c55da5be60e71e278b41e9a379e3 ""
   "./Plots/NormalHet_AR1_ModelErr_TP_April.pdf" 1558047259 6512 ecd12683de401cf8ed222135fb1c2d9d ""
   "./Plots/NormalHet_AR1_PredErr_April.pdf" 1558047258 5539 cf7271c892dd1c1916eff156eecc6e74 ""
@@ -130,10 +130,10 @@
   "/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1432479641 1764542 91654ba72bdb667e84ea24f076ae16d8 ""
   "/usr/local/texlive/2015/texmf-var/web2c/pdftex/pdflatex.fmt" 1432479681 3849859 39a7d258195bde2394e244961601fbc5 ""
   "/usr/local/texlive/2015/texmf.cnf" 1432479636 577 0d611272082f3cdb8e80e09a3c69cf07 ""
-  "NN_MRR.aux" 1559278000 13813 9659bf33ff0f27ae3c6f0df2d72ed237 ""
-  "NN_MRR.bbl" 1559270057 7780 6683d828fce47401c05b10a091f394ca "bibtex NN_MRR"
-  "NN_MRR.out" 1559278001 1850 0828f2d8ef3971295983eaa6edb94ffa ""
-  "NN_MRR.tex" 1559277999 104378 27170bfbe48083009efe717752f2c4a8 ""
+  "NN_MRR.aux" 1559322103 13813 c8f621d1d653d9e17a0e907eab57c033 ""
+  "NN_MRR.bbl" 1559321902 7780 6683d828fce47401c05b10a091f394ca "bibtex NN_MRR"
+  "NN_MRR.out" 1559322103 1850 0828f2d8ef3971295983eaa6edb94ffa ""
+  "NN_MRR.tex" 1559322101 103947 770fc435e92cc45a14d9d688a5f239c4 ""
   "Plots/NormalHet_AR1_ModelErr_April.pdf" 1558047258 5525 8bc1c55da5be60e71e278b41e9a379e3 ""
   "Plots/NormalHet_AR1_ModelErr_TP_April.pdf" 1558047259 6512 ecd12683de401cf8ed222135fb1c2d9d ""
   "Plots/NormalHet_AR1_PredErr_April.pdf" 1558047258 5539 cf7271c892dd1c1916eff156eecc6e74 ""
@@ -151,7 +151,7 @@
   "Plots/TP_LegendGet.pdf" 1559093315 27331 c19437b783d8510c25709179f419276b ""
   "Plots/Vert_Legend.pdf" 1558560935 32663 821ac345acdeaec2e218b8f6a43ce1fe ""
   (generated)
-  "NN_MRR.out"
   "NN_MRR.pdf"
-  "NN_MRR.aux"
   "NN_MRR.log"
+  "NN_MRR.out"
+  "NN_MRR.aux"

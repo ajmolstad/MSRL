@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  30 MAY 2019 21:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  31 MAY 2019 10:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -474,51 +474,51 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 
 [15] [16] [17] [18] [19]
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 432.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 431.
  [20] [21]
-<Plots/NormalHet_AR1_ModelErr_April.pdf, id=436, 230.8625pt x 165.61874pt>
+<Plots/NormalHet_AR1_ModelErr_April.pdf, id=437, 230.8625pt x 165.61874pt>
 File: Plots/NormalHet_AR1_ModelErr_April.pdf Graphic file (type pdf)
 
 <use Plots/NormalHet_AR1_ModelErr_April.pdf>
 Package pdftex.def Info: Plots/NormalHet_AR1_ModelErr_April.pdf used on input l
-ine 473.
+ine 472.
 (pdftex.def)             Requested size: 184.9429pt x 132.67712pt.
 
-<Plots/NormalHet_Const_ModelErr_April.pdf, id=437, 230.8625pt x 165.61874pt>
+<Plots/NormalHet_Const_ModelErr_April.pdf, id=438, 230.8625pt x 165.61874pt>
 File: Plots/NormalHet_Const_ModelErr_April.pdf Graphic file (type pdf)
 
 <use Plots/NormalHet_Const_ModelErr_April.pdf>
 Package pdftex.def Info: Plots/NormalHet_Const_ModelErr_April.pdf used on input
- line 473.
+ line 472.
 (pdftex.def)             Requested size: 184.9429pt x 132.67712pt.
 
-<Plots/Vert_Legend.pdf, id=438, 614.295pt x 794.97pt>
+<Plots/Vert_Legend.pdf, id=439, 614.295pt x 794.97pt>
 File: Plots/Vert_Legend.pdf Graphic file (type pdf)
 
 <use Plots/Vert_Legend.pdf>
-Package pdftex.def Info: Plots/Vert_Legend.pdf used on input line 473.
+Package pdftex.def Info: Plots/Vert_Legend.pdf used on input line 472.
 (pdftex.def)             Requested size: 99.58464pt x 128.87177pt.
 
-Overfull \vbox (75.22186pt too high) detected at line 473
+Overfull \vbox (75.22186pt too high) detected at line 472
  []
 
-<Plots/NormalHet_Dense_ModelErr_April.pdf, id=439, 230.8625pt x 165.61874pt>
+<Plots/NormalHet_Dense_ModelErr_April.pdf, id=440, 230.8625pt x 165.61874pt>
 File: Plots/NormalHet_Dense_ModelErr_April.pdf Graphic file (type pdf)
 
 <use Plots/NormalHet_Dense_ModelErr_April.pdf>
 Package pdftex.def Info: Plots/NormalHet_Dense_ModelErr_April.pdf used on input
- line 475.
+ line 474.
 (pdftex.def)             Requested size: 184.9429pt x 132.67712pt.
 
-<Plots/THet_AR1_ModelErr_April.pdf, id=440, 230.8625pt x 165.61874pt>
+<Plots/THet_AR1_ModelErr_April.pdf, id=441, 230.8625pt x 165.61874pt>
 File: Plots/THet_AR1_ModelErr_April.pdf Graphic file (type pdf)
 
 <use Plots/THet_AR1_ModelErr_April.pdf>
 Package pdftex.def Info: Plots/THet_AR1_ModelErr_April.pdf used on input line 4
-75.
+74.
 (pdftex.def)             Requested size: 193.47882pt x 138.80037pt.
 
-Overfull \hbox (44.25134pt too wide) in paragraph at lines 472--478
+Overfull \hbox (44.25134pt too wide) in paragraph at lines 471--477
 [][] 
  []
 
@@ -533,46 +533,47 @@ File: Plots/NormalHet_AR1_ModelErr_TP_April.pdf Graphic file (type pdf)
 
 <use Plots/NormalHet_AR1_ModelErr_TP_April.pdf>
 Package pdftex.def Info: Plots/NormalHet_AR1_ModelErr_TP_April.pdf used on inpu
-t line 524.
+t line 523.
 (pdftex.def)             Requested size: 227.62204pt x 163.29337pt.
 
 <Plots/NormalHet_Const_ModelErr_TP_April.pdf, id=538, 230.8625pt x 165.61874pt>
 File: Plots/NormalHet_Const_ModelErr_TP_April.pdf Graphic file (type pdf)
 <use Plots/NormalHet_Const_ModelErr_TP_April.pdf>
 Package pdftex.def Info: Plots/NormalHet_Const_ModelErr_TP_April.pdf used on in
-put line 524.
+put line 523.
 (pdftex.def)             Requested size: 227.62204pt x 163.29337pt.
 
 <Plots/TP_LegendGet.pdf, id=539, 440.4178pt x 68.15839pt>
 File: Plots/TP_LegendGet.pdf Graphic file (type pdf)
 
 <use Plots/TP_LegendGet.pdf>
-Package pdftex.def Info: Plots/TP_LegendGet.pdf used on input line 526.
+Package pdftex.def Info: Plots/TP_LegendGet.pdf used on input line 525.
 (pdftex.def)             Requested size: 455.24408pt x 70.4535pt.
- [25] [26 <./Plots/NormalHet_AR1_ModelErr_TP_April.pdf> <./Plots/NormalHet_Cons
-t_ModelErr_TP_April.pdf> <./Plots/TP_LegendGet.pdf>] [27] [28] (./NN_MRR.bbl
+ [25 <./Plots/NormalHet_AR1_ModelErr_TP_April.pdf> <./Plots/NormalHet_Const_Mod
+elErr_TP_April.pdf> <./Plots/TP_LegendGet.pdf>]
+[26] [27] [28] (./NN_MRR.bbl
 LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 24.
  [29] [30] [31]) [32]pdfTeX warning (ext4): destination with the same identifie
 r (name{section.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.599 ...on{Proofs of Proposition 1 and Theorem 1}
+l.598 ...on{Proofs of Proposition 1 and Theorem 1}
                                                   pdfTeX warning (ext4): destin
 ation with the same identifier (name{page.1}) has been already used, duplicate 
 ignored
 <to be read again> 
                    \relax 
-l.605 \end{lemma}
+l.604 \end{lemma}
                   [1
 
 ]pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.631 
+l.630 
        [2]
-Overfull \hbox (1.10393pt too wide) in paragraph at lines 655--655
+Overfull \hbox (1.10393pt too wide) in paragraph at lines 654--654
 [] 
  []
 
@@ -580,14 +581,14 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.3}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.655 \end{align}
+l.654 \end{align}
                   [3]pdfTeX warning (ext4): destination with the same identifie
 r (name{page.4}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.675 \end{align*}
+l.674 \end{align*}
                    [4]
-Overfull \hbox (24.13562pt too wide) in paragraph at lines 681--681
+Overfull \hbox (24.13562pt too wide) in paragraph at lines 680--680
 \OT1/cmr/m/n/12 ([][]2008[][]), de-tailed in [][]Ne-gah-ban et al.[][] ([][]201
 2[][]). De-fine $\OMS/cmsy/m/n/12 B[] \OT1/cmr/m/n/12 = []$.
  []
@@ -596,15 +597,15 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.5}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.682 \begin{align}
+l.681 \begin{align}
                     [5]pdfTeX warning (ext4): destination with the same identif
 ier (name{page.6}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.710 $$
+l.709 $$
          P\left(\frac{1}{\sqrt{n}} \frac{\|X'\eta\|_{\rm max}}{\|\eta\|_2} \...
 [6]
-Overfull \hbox (53.01251pt too wide) detected at line 714
+Overfull \hbox (53.01251pt too wide) detected at line 713
 \OML/cmm/m/it/12 P [] \OMS/cmsy/m/n/12 ^^T \OML/cmm/m/it/12 P [] \OT1/cmr/m/n/1
 2 + \OML/cmm/m/it/12 P [] :
  []
@@ -613,9 +614,9 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.7}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.725 ... \right\} \leq \frac{\alpha}{\phi_2 q}.$$
+l.724 ... \right\} \leq \frac{\alpha}{\phi_2 q}.$$
                                                    [7]
-Overfull \hbox (39.65707pt too wide) in paragraph at lines 730--730
+Overfull \hbox (39.65707pt too wide) in paragraph at lines 729--729
 [] 
  []
 
@@ -623,9 +624,9 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.8}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.746 \begin{align*}
+l.745 \begin{align*}
                      [8]
-Overfull \hbox (17.2062pt too wide) in paragraph at lines 750--750
+Overfull \hbox (17.2062pt too wide) in paragraph at lines 749--749
 [] 
  []
 
@@ -633,26 +634,26 @@ pdfTeX warning (ext4): destination with the same identifier (name{section.2}) h
 as been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.751 \section{Additional simulation results}
+l.750 \section{Additional simulation results}
                                              pdfTeX warning (ext4): destination
  with the same identifier (name{subsection.2.1}) has been already used, duplica
 te ignored
 <to be read again> 
                    \relax 
-l.752 ...ection{Weighted prediction error results}
+l.751 ...ection{Weighted prediction error results}
                                                   pdfTeX warning (ext4): destin
 ation with the same identifier (name{page.9}) has been already used, duplicate 
 ignored
 <to be read again> 
                    \relax 
-l.758 
+l.757 
        [9]
 <Plots/NormalHet_AR1_PredErr_April.pdf, id=766, 230.8625pt x 165.61874pt>
 File: Plots/NormalHet_AR1_PredErr_April.pdf Graphic file (type pdf)
 
 <use Plots/NormalHet_AR1_PredErr_April.pdf>
 Package pdftex.def Info: Plots/NormalHet_AR1_PredErr_April.pdf used on input li
-ne 762.
+ne 761.
 (pdftex.def)             Requested size: 196.32384pt x 140.84229pt.
 
 <Plots/NormalHet_Const_PredErr_April.pdf, id=767, 230.8625pt x 165.61874pt>
@@ -660,14 +661,14 @@ File: Plots/NormalHet_Const_PredErr_April.pdf Graphic file (type pdf)
 
 <use Plots/NormalHet_Const_PredErr_April.pdf>
 Package pdftex.def Info: Plots/NormalHet_Const_PredErr_April.pdf used on input 
-line 762.
+line 761.
 (pdftex.def)             Requested size: 196.32384pt x 140.84229pt.
 File: Plots/Vert_Legend.pdf Graphic file (type pdf)
  <use Plots/Vert_Legend.pdf>
-Package pdftex.def Info: Plots/Vert_Legend.pdf used on input line 762.
+Package pdftex.def Info: Plots/Vert_Legend.pdf used on input line 761.
 (pdftex.def)             Requested size: 71.13188pt x 92.04433pt.
 
-Overfull \vbox (38.39442pt too high) detected at line 762
+Overfull \vbox (38.39442pt too high) detected at line 761
  []
 
 <Plots/NormalHet_Dense_PredErr_April.pdf, id=768, 230.8625pt x 165.61874pt>
@@ -675,7 +676,7 @@ File: Plots/NormalHet_Dense_PredErr_April.pdf Graphic file (type pdf)
 
 <use Plots/NormalHet_Dense_PredErr_April.pdf>
 Package pdftex.def Info: Plots/NormalHet_Dense_PredErr_April.pdf used on input 
-line 764.
+line 763.
 (pdftex.def)             Requested size: 196.32384pt x 140.84229pt.
 
 <Plots/THet_AR1_PredErr_April.pdf, id=769, 230.8625pt x 165.61874pt>
@@ -683,10 +684,10 @@ File: Plots/THet_AR1_PredErr_April.pdf Graphic file (type pdf)
 
 <use Plots/THet_AR1_PredErr_April.pdf>
 Package pdftex.def Info: Plots/THet_AR1_PredErr_April.pdf used on input line 76
-4.
+3.
 (pdftex.def)             Requested size: 202.01474pt x 144.92361pt.
 
-Overfull \hbox (35.71544pt too wide) in paragraph at lines 761--767
+Overfull \hbox (35.71544pt too wide) in paragraph at lines 760--766
 [][] 
  []
 
@@ -694,22 +695,22 @@ pdfTeX warning (ext4): destination with the same identifier (name{subsection.2.
 2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.771 \subsection{Model 1 and 2 with $q$ varying}
+l.770 \subsection{Model 1 and 2 with $q$ varying}
                                                  
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 771.
+(hyperref)                removing `math shift' on input line 770.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 771.
+(hyperref)                removing `math shift' on input line 770.
 
 <Plots/NormalHet_qAR1_ModelErr_April.pdf, id=771, 230.8625pt x 165.61874pt>
 File: Plots/NormalHet_qAR1_ModelErr_April.pdf Graphic file (type pdf)
 
 <use Plots/NormalHet_qAR1_ModelErr_April.pdf>
 Package pdftex.def Info: Plots/NormalHet_qAR1_ModelErr_April.pdf used on input 
-line 775.
+line 774.
 (pdftex.def)             Requested size: 184.9429pt x 132.67712pt.
 
 <Plots/NormalHet_qConst_ModelErr_April.pdf, id=772, 230.8625pt x 165.61874pt>
@@ -717,14 +718,14 @@ File: Plots/NormalHet_qConst_ModelErr_April.pdf Graphic file (type pdf)
 
 <use Plots/NormalHet_qConst_ModelErr_April.pdf>
 Package pdftex.def Info: Plots/NormalHet_qConst_ModelErr_April.pdf used on inpu
-t line 775.
+t line 774.
 (pdftex.def)             Requested size: 184.9429pt x 132.67712pt.
 File: Plots/Vert_Legend.pdf Graphic file (type pdf)
  <use Plots/Vert_Legend.pdf>
-Package pdftex.def Info: Plots/Vert_Legend.pdf used on input line 775.
+Package pdftex.def Info: Plots/Vert_Legend.pdf used on input line 774.
 (pdftex.def)             Requested size: 71.13188pt x 92.04433pt.
 
-Overfull \vbox (38.39442pt too high) detected at line 775
+Overfull \vbox (38.39442pt too high) detected at line 774
  []
 
 <Plots/NormalHet_qAR1_PredErr_April.pdf, id=773, 230.8625pt x 165.61874pt>
@@ -732,7 +733,7 @@ File: Plots/NormalHet_qAR1_PredErr_April.pdf Graphic file (type pdf)
 
 <use Plots/NormalHet_qAR1_PredErr_April.pdf>
 Package pdftex.def Info: Plots/NormalHet_qAR1_PredErr_April.pdf used on input l
-ine 777.
+ine 776.
 (pdftex.def)             Requested size: 196.32384pt x 140.84229pt.
 
 <Plots/NormalHet_qConst_PredErr_April.pdf, id=774, 230.8625pt x 165.61874pt>
@@ -740,10 +741,10 @@ File: Plots/NormalHet_qConst_PredErr_April.pdf Graphic file (type pdf)
 
 <use Plots/NormalHet_qConst_PredErr_April.pdf>
 Package pdftex.def Info: Plots/NormalHet_qConst_PredErr_April.pdf used on input
- line 777.
+ line 776.
 (pdftex.def)             Requested size: 196.32384pt x 140.84229pt.
 
-Overfull \hbox (30.02454pt too wide) in paragraph at lines 774--780
+Overfull \hbox (30.02454pt too wide) in paragraph at lines 773--779
 [][] 
  []
 
@@ -751,35 +752,35 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.10}) has
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.784 
+l.783 
        [10 <./Plots/NormalHet_AR1_PredErr_April.pdf> <./Plots/NormalHet_Const_P
 redErr_April.pdf> <./Plots/NormalHet_Dense_PredErr_April.pdf> <./Plots/THet_AR1
 _PredErr_April.pdf>]pdfTeX warning (ext4): destination with the same identifier
  (name{section.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.786 \section{Computational details}
+l.785 \section{Computational details}
                                      pdfTeX warning (ext4): destination with th
 e same identifier (name{subsection.3.1}) has been already used, duplicate ignor
 ed
 <to be read again> 
                    \relax 
-l.787 ...rivation of proximal ADMM $\beta$ update}
+l.786 ...rivation of proximal ADMM $\beta$ update}
                                                   
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 787.
+(hyperref)                removing `math shift' on input line 786.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\beta' on input line 787.
+(hyperref)                removing `\beta' on input line 786.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 787.
+(hyperref)                removing `math shift' on input line 786.
 
 
-Overfull \hbox (32.57916pt too wide) in paragraph at lines 791--791
+Overfull \hbox (32.57916pt too wide) in paragraph at lines 790--790
 [] 
  []
 
@@ -787,11 +788,11 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.11}) has
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.791 ... \mathcal{P}(\beta) \right\}.\end{align*}
+l.790 ... \mathcal{P}(\beta) \right\}.\end{align*}
                                                    [11 <./Plots/NormalHet_qAR1_
 ModelErr_April.pdf> <./Plots/NormalHet_qConst_ModelErr_April.pdf> <./Plots/Norm
 alHet_qAR1_PredErr_April.pdf> <./Plots/NormalHet_qConst_PredErr_April.pdf>]
-Overfull \hbox (41.63301pt too wide) in paragraph at lines 803--803
+Overfull \hbox (41.63301pt too wide) in paragraph at lines 802--802
 [] 
  []
 
@@ -799,40 +800,40 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.12}) has
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.803 \end{align*}
+l.802 \end{align*}
                    [12]pdfTeX warning (ext4): destination with the same identif
 ier (name{subsection.3.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.805 ...Stochastic approximation of the gradient}
+l.804 ...Stochastic approximation of the gradient}
                                                   pdfTeX warning (ext4): destin
 ation with the same identifier (name{subsection.3.3}) has been already used, du
 plicate ignored
 <to be read again> 
                    \relax 
-l.809 ...r refitting with unstructured covariance}
+l.808 ...r refitting with unstructured covariance}
                                                   pdfTeX warning (ext4): destin
 ation with the same identifier (name{page.13}) has been already used, duplicate
  ignored
 <to be read again> 
                    \relax 
-l.816 \item $
+l.815 \item $
              \beta^{(k+1)} = \argmin_{\beta \in G(\tilde{\beta})} {\rm tr}\l...
 [13]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 828.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 827.
 pdfTeX warning (ext4): destination with the same identifier (name{page.14}) has
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.828 \end{document}
+l.827 \end{document}
                      [14]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 828.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 827.
  (./NN_MRR.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 828.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 828.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 827.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 827.
 Package rerunfilecheck Info: File `NN_MRR.out' has not changed.
 (rerunfilecheck)             Checksum: 0828F2D8EF3971295983EAA6EDB94FFA;1850.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 828.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 827.
  )
 (\end occurred inside a group at level 1)
 
@@ -841,11 +842,11 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 828.
 Here is how much of TeX's memory you used:
  8531 strings out of 493089
  128708 string characters out of 6134842
- 235180 words of memory out of 5000000
+ 237180 words of memory out of 5000000
  11750 multiletter control sequences out of 15000+600000
  16056 words of font info for 62 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 36i,16n,38p,1532b,1484s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,16n,38p,1532b,1485s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmbx10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmbx12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/c
@@ -865,7 +866,7 @@ al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local
 texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/t
 exlive/2015/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/loc
 al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on NN_MRR.pdf (46 pages, 497094 bytes).
+Output written on NN_MRR.pdf (46 pages, 496720 bytes).
 PDF statistics:
  946 PDF objects out of 1000 (max. 8388607)
  812 compressed objects within 9 object streams

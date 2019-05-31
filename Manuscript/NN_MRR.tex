@@ -323,7 +323,7 @@ The termination conditions we use are based on the dual and primal residuals sug
 \begin{spacing}{1.15}
 \begin{algorithmic}[1]
 \Require Initialize $\rho > 0$, $\eta > \varphi_1(X'X)$, $\tilde{\lambda} = \sqrt{n}\lambda$, $\tau \in (0, \frac{1 + \sqrt{5}}{2})$, and $k=0$.
-\State Decompose $UDV' \leftarrow Y + \rho^{-1}\Gamma^{(k)} - X\beta^{(k)}$ where $U$ and $V$ are orthogonal and $D$ is diagonal. 
+\State Decompose $UDV' = {\rm svd}(Y + \rho^{-1}\Gamma^{(k)} - X\beta^{(k)})$. 
 \State Compute $\Phi^{(k+1)} \leftarrow U \{ \texttt{pmax}(D - \rho^{-1}, 0) \} V'$
 \State Compute $\beta^{(k+1)} \leftarrow {\rm Prox}_{(\rho \eta)^{-1}\tilde{\lambda} \mathcal{P}} \left\{ \beta^{(k)} + \eta^{-1} X'\left(Y + \rho^{-1} \Gamma^{(k)} - \Phi^{(k+1)} - X\beta^{(k)}\right)\right\}$
 \State Compute $\Gamma^{(k+1)} \leftarrow \Gamma^{(k)} + \tau \rho(Y - X\beta^{(k+1)} - \Phi^{(k+1)})$
@@ -380,10 +380,9 @@ are satisfied by $\beta^{(k+1)}$.
 \begin{algorithmic}[1]
 \Require Initialize $\beta^{(0)} \in \mathbb{R}^{p \times q}$, $\beta^{(-1)} = \beta^{(0)}$ $t_0=1$, $\alpha^{(0)} = 1$, $\alpha^{(-1)} = 1$, $\gamma \in (0,1)$, and $\hat{U}\hat{D}\hat{V}' = {\rm svd}(Y - X \beta^{(0)}).$ Set $k=0$ and go to Step 1. 
 \State Compute $\Gamma^{(k)} \leftarrow \beta^{(k)} + \left(\frac{\alpha^{(k-1)} - 1}{\alpha^{(k)}}\right) \left(\beta^{(k)} - \beta^{(k-1)}\right).$
-\State Decompose $\tilde{U}\tilde{D}\tilde{V}' = Y - X \Gamma^{(k)}$ where $\tilde{U} \in \mathbb{R}^{n \times q}$ is semi-orthogonal, $\tilde{V} \in \mathbb{R}^{q \times q}$ is orthogonal, and $\tilde{D} \in \mathbb{R}^{q \times q}$ is diagonal with non-negative entries. 
+\State Decompose $\tilde{U}\tilde{D}\tilde{V}' = {\rm svd}(Y - X \Gamma^{(k)})$.
 	\State Compute $\tilde{\beta} \leftarrow {\rm Prox}_{ \frac{t_k\lambda}{\tau} \mathcal{P}} \left[\Gamma^{(k)} + \frac{t_k}{\sqrt{n}}X'\tilde{U}\tilde{V}' \right].$
-	\State Decompose $\bar{U}\bar{D}\bar{V}' = Y - X\tilde{\beta}$
-	where $\bar{U} \in \mathbb{R}^{n \times q}$ is semi-orthogonal, $\bar{V} \in \mathbb{R}^{q \times q}$ is orthogonal, and $\bar{D} \in \mathbb{R}^{q \times q}$ is diagonal with non-negative entries. 
+	\State Decompose $\bar{U}\bar{D}\bar{V}' = {\rm svd}(Y - X\tilde{\beta})$. 
  	\State If ${\rm tr}(\bar{D})  < {\rm tr}(\tilde{D}) + 
  	{\rm tr}\left[\tilde{V}\tilde{U}'X(\Gamma^{(k)} - \tilde{\beta})\right] + \frac{\sqrt{n}}{2t_k}\|\Gamma^{(k)} - \tilde{\beta}\|_F^2$, go to Step 6. Else, set $t_k = \gamma t_k$ and return to Step 3.
  	\State If ${\rm tr}(\bar{D}) + \sqrt{n}\lambda \mathcal{P}(\tilde{\beta}) \leq {\rm tr}(\hat{D}) + \sqrt{n}\lambda \mathcal{P}(\beta^{(k)})$, set $\beta^{(k+1)} \leftarrow \tilde{\beta}$ and $\hat{D} \leftarrow \bar{D}$. Else, set $\beta^{(k+1)} \leftarrow \beta^{(k)}$. 
