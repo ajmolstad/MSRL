@@ -16,7 +16,7 @@
 % -------------------------------------
 
 
-\documentclass[12pt]{article}
+\documentclass[11pt]{article}
 \usepackage{amssymb, amsmath}
 \bibliographystyle{apalike}
 \usepackage{multirow}
@@ -88,7 +88,7 @@ Multivariate response linear regression is a classical method for modeling the l
 \begin{equation} \label{eq:MVR}
 \beta_{*0} + \beta_*'x_i + \epsilon_i, \quad i = 1, \dots, n, 
 \end{equation}
-where $\beta_{*0} \in \mathbb{R}^{q}$ and $\beta_* \in \mathbb{R}^{p \times q}$ are the unknown intercept vector and regression coefficient matrix, respectively; and the $x_i \in \mathbb{R}^p$ are the measured predictors for the $i$th subject. We assume that the $\epsilon_i$'s are independent and identically distributed $q$-variate random vectors with mean zero and covariance $\Sigma_* \in \mathbb{S}^q_+$ where $\Sigma_*$ is unknown and $\mathbb{S}_+^q$ denotes the set of $q \times q$ symmetric and positive definite matrices. Let $\Omega_* \equiv \Sigma_*^{-1}$ be the unknown error precision matrix. For notational convenience, let $Y = (y_1 - \bar{y}, \dots, y_n - \bar{y})' \in \mathbb{R}^{n \times q}$ and $X =  (x_1 - \bar{x}, \dots, x_n - \bar{x})' \in \mathbb{R}^{n \times p}$, where $\bar{y} = n^{-1} \sum_{i=1}^n y_i$ and $\bar{x} = n^{-1} \sum_{i=1}^n x_i$. 
+where $\beta_{*0} \in \mathbb{R}^{q}$ and $\beta_* \in \mathbb{R}^{p \times q}$ are the unknown intercept vector and regression coefficient matrix, respectively; and the $x_i \in \mathbb{R}^p$ are the measured predictors for the $i$th subject. We assume that the $\epsilon_i$'s are independent and identically distributed $q$-variate random vectors with mean zero and covariance $\Sigma_* \in \mathbb{S}^q_+$ where $\Sigma_*$ is unknown and $\mathbb{S}_+^q$ denotes the set of $q \times q$ symmetric and positive definite matrices. Let $\Omega_* \equiv \Sigma_*^{-1}$ be the unknown error precision matrix. For notational convenience, let $Y = (y_1 - \bar{y}, \dots, y_n - \bar{y})' \in \mathbb{R}^{n \times q}$ and $X = (x_1 - \bar{x}, \dots, x_n - \bar{x})' \in \mathbb{R}^{n \times p}$, where $\bar{y} = n^{-1} \sum_{i=1}^n y_i$ and $\bar{x} = n^{-1} \sum_{i=1}^n x_i$. 
 
 Many methods exist for fitting the multivariate response linear regression model \eqref{eq:MVR}. When $n > p$ and the $\epsilon_i$'s are multivariate normal, the maximum likelihood estimator (and equivalently, least squares estimator) of $\beta_*$ does not require knowledge of nor an estimate of $\Omega_*$. When $p \geq n$, in which case the least squares estimator is not unique, a popular alternative is to estimate $\beta_*$ by minimizing a penalized least squares criterion (i.e., penalized squared Frobenius norm criterion) using penalties that exploit the matrix structure of the unknown regression coefficients \citep{turlach2005simultaneous,yuan2007dimension,obozinski2011support}. However, the penalized least squares criterion implicitly assumes $\Sigma_* \propto I_p$, e.g., the penalized least squares estimator is equivalent to the penalized normal maximum likelihood estimator when $\Sigma_* \propto I_p$ and is known. %Thus, when $\Sigma_*$ has nonzero off diagonal entries or when its diagonal elements differ, penalized least squares is too restrictive.  
 
@@ -112,7 +112,7 @@ In this article, we study \eqref{eq:MSRL} from theoretical, computational, and e
 %This feature allows the estimation criterion to adapt to dependent errors without requiring an explicit estimate of the error precision matrix. 
 Through simulation studies, we show that \eqref{eq:MSRL} can perform as well or better than methods which estimate both $\beta_*$ and $\Omega_*$ jointly, both of which outperform penalized least squares estimators when $\Sigma_*$ has many nonzero off-diagonals. Based on our theory, we also propose a tuning procedure which does not require cross-validation: it requires solving \eqref{eq:MSRL} for only a single value of the tuning parameter. Finally, we propose two new algorithms to compute \eqref{eq:MSRL} efficiently: one algorithm which can be used in any setting and has convergence guarantees, and a second which can be much faster when $n > q$ and the tuning parameter is sufficiently large. An R package implementing our method will be available for download at \href{http://github.com/ajmolstad/MSRL}{github.com/ajmolstad/MSRL} upon publication. 
 
-Throughout this article, when we write $UDV' = {\rm svd}(A)$, we refer to the singular value decomposition of $A \in \mathbb{R}^{a \times b}$ where, letting $s = {\rm min}\left\{a, b\right\}$, $U \in \mathbb{R}^{a \times s}$, $D \in \mathbb{R}^{s \times s}$ and $V \in \mathbb{R}^{b \times s}$ where $D$ is diagonal with nonnegative entries and $U$ and $V$ are semi-orthogonal. Define the norms $\|A\|_F^2 = \sum_{j,k} A_{j,k}^2$; $\|A\|_{\rm max} = \max_{j,k}|A_{j,k}|$ and $\|A\|_2 = \sigma_1(A)$ where $\sigma_j(A)$ denotes the $j$th largest singular value of $A$. We will refer to the norm $\| \cdot\|_{\rm max}$ as the ``max-norm''. 
+Throughout this article, when we write $(U,D,V) = {\rm svd}(A)$, we refer to the singular value decomposition of $A = UDV' \in \mathbb{R}^{a \times b}$ where, letting $s = {\rm min}\left\{a, b\right\}$, $U \in \mathbb{R}^{a \times s}$, $D \in \mathbb{R}^{s \times s}$ and $V \in \mathbb{R}^{b \times s}$ where $D$ is diagonal with nonnegative entries and $U$ and $V$ are semi-orthogonal. Define the norms $\|A\|_F^2 = \sum_{j,k} A_{j,k}^2$; $\|A\|_{\rm max} = \max_{j,k}|A_{j,k}|$ and $\|A\|_2 = \sigma_1(A)$ where $\sigma_j(A)$ denotes the $j$th largest singular value of $A$. We will refer to the norm $\| \cdot\|_{\rm max}$ as the ``max-norm''. 
 
 % \section{Motivation}
 % Suppose momentarily that $\Omega_*$ were known. Then, if one were willing to assume the $\epsilon_i$'s were normally distributed, the $\ell_1$-penalized maximum likelihood estimator of $\beta_*$ would be 
@@ -203,15 +203,15 @@ Remark 1 suggests that we can solve the joint convex optimization problem \eqref
 \subsection{Statistical properties of the multivariate square-root lasso}
 We establish an error bound for $\hat{\beta} - \beta_*$ which allows $p$ and $q$ to grow with $n$. In obtaining this bound we prove that \eqref{eq:MSRL}, like the univariate square-root lasso, is pivotal with respect to $\Omega_*$. For concreteness, we focus on \eqref{eq:MSRL} with $\mathcal{P}(\beta) = \sum_{j,k}|\beta_{j,k}|$. We assume that the regression coefficient matrix $\beta_*$ has $s \geq 1$ nonzero entries, whose indices are denoted by the set $\mathcal{S}$. In addition, we treat $X$ as fixed and assume its columns have been normalized so that $\|X_j\|_2 = 1$ for $j = 1, \dots, p$. Define $\bar{c} = (c+1)/(c-1)$. We will require the following assumptions: 
 \begin{itemize}
- \item[] \textbf{A1.} The error matrix $\mathcal{E} = Y - X\beta_*$ has $q$ nonzero singular values almost surely. 
+ \item[] \textbf{A1.} The $n \times q$ error matrix $\mathcal{E}$ has $q$ nonzero singular values almost surely. 
  \item[]\textbf{A2.} The distribution of the error matrix $\mathcal{E}$ is left-spherical, i.e., for any orthogonal matrix $O_n^{(n)} \in \mathbb{R}^{n \times n}$, 
 $O_n^{(n)} \mathcal{E}$ has the same matrix-variate distribution as $\mathcal{E}$. 
 % \item[]\textbf{A3.} There exists a positive constant $\kappa_{\mathcal{E},c}$ such that  
 \end{itemize}
 Assumption A1 requires that $n > q$ and that the $q$-variate distribution of each row of $\mathcal{E}$ is non-degenerate. Assumptions A1 and A2 would hold if, for example, the rows of $\mathcal{E}$ were independent and each row followed a mean zero, $q$-variate multivariate normal distribution with covariance $\Sigma_* \in \mathbb{S}^q_+.$ In addition to A1 and A2, our bounds will depend on the quantity:
 $$\kappa_{\mathcal{E},c} = \inf_{\Delta \in \mathcal{C}(\mathcal{S}, c)} \left\{ \frac{\sup_{\|Q\| \leq 1} {\rm tr}\left\{ (Q - U_*V_*')'(U_*D_*V_*' - X \Delta) \right\} }{ \sqrt{n}\|\Delta\|_F^2}\right\},$$
-where $\mathcal{C}(\mathcal{S}, c) = \left\{ \Delta: \Delta \in \mathbb{R}^{p \times q}, \Delta  \neq 0, \bar{c} \sum_{(j,k) \notin \mathcal{S}}|\Delta_{j,k}| \leq \sum_{(j,k) \in \mathcal{S}}|\Delta_{j,k}| \right\}$ and $U_*D_*V_*' = {\rm svd}(\mathcal{E}).$
-The quantity $\kappa_{\mathcal{E},c}$ is needed to establish a lower bound on the first order Taylor expansion of the nuclear norm of the residuals. A positive $\kappa_{\mathcal{E},c}$ exists almost surely since the numerator is positive with probability one under A1. Unlike in the least squares setting, this quantity is not a restricted eigenvalue: $\kappa_{\mathcal{E},c}$ also depends on the errors $Y - X\beta_*$. However, if the regression were error-less, $\kappa_{\mathcal{E},c}$ would simplify to a restricted singular value-type quantity: $\inf_{\Delta \in\mathcal{C}(\mathcal{S}, c)} \left\{ \|X\Delta\|_*/ \sqrt{n}\|\Delta\|_F^2\right\}$. Using that $\|A\|_* = \sup_{\|W\| \leq 1} {\rm tr}(W'A)$, its immediate that the $Q$ which maximizes the numerator is $Q = \tilde{U}\tilde{V}'$, where $\tilde{U}\tilde{D}\tilde{V}' = {\rm svd}(\mathcal{E} - X\Delta)$. Thus, if the entries of $X\Delta$ are large relative to the entries of $\mathcal{E}$, then $\kappa_{\mathcal{E},c}$ will be large. Conversely, if the error variances and off-diagonals of $\Sigma_*$ are large, $\kappa_{\mathcal{E},c}$ will be small because $\mathcal{E} - X\Delta \approx U_*D_*V_*'$ since the diagonals of $D_*$ would be large. Assigning a probability to a particular value of $\kappa_{\mathcal{E},c}$ is technically difficult because we allow the columns of $Y - X\beta_*$ to be dependent. Thus, we do not make any assumptions about $\kappa_{\mathcal{E},c}$ -- this quantity appears in the error bounds we establish below. 
+where $\mathcal{C}(\mathcal{S}, c) = \left\{ \Delta: \Delta \in \mathbb{R}^{p \times q}, \Delta  \neq 0, \bar{c} \sum_{(j,k) \notin \mathcal{S}}|\Delta_{j,k}| \leq \sum_{(j,k) \in \mathcal{S}}|\Delta_{j,k}| \right\}$ and $(U_*, D_*, V_*) = {\rm svd}(\mathcal{E}).$
+The quantity $\kappa_{\mathcal{E},c}$ is needed to establish a lower bound on the first order Taylor expansion of the nuclear norm of the residuals. A positive $\kappa_{\mathcal{E},c}$ exists almost surely since the numerator is positive with probability one under A1. Unlike in the least squares setting, this quantity is not a restricted eigenvalue: $\kappa_{\mathcal{E},c}$ also depends on the errors $Y - X\beta_*$. However, if the regression were error-less, $\kappa_{\mathcal{E},c}$ would simplify to a restricted singular value-type quantity: $\inf_{\Delta \in\mathcal{C}(\mathcal{S}, c)} \left\{ \|X\Delta\|_*/ \sqrt{n}\|\Delta\|_F^2\right\}$. Using that $\|A\|_* = \sup_{\|W\| \leq 1} {\rm tr}(W'A)$, its immediate that the $Q$ which maximizes the numerator is $Q = \tilde{U}\tilde{V}'$, where $(\tilde{U},\tilde{D},\tilde{V}) = {\rm svd}(\mathcal{E} - X\Delta)$. Thus, if the entries of $X\Delta$ are large relative to the entries of $\mathcal{E}$, then $\kappa_{\mathcal{E},c}$ will be large. Conversely, if the error variances and off-diagonals of $\Sigma_*$ are large, $\kappa_{\mathcal{E},c}$ will be small because $\mathcal{E} - X\Delta \approx U_*D_*V_*'$ since the diagonals of $D_*$ would be large. Assigning a probability to a particular value of $\kappa_{\mathcal{E},c}$ is technically difficult because we allow the columns of $Y - X\beta_*$ to be dependent. Thus, we do not make any assumptions about $\kappa_{\mathcal{E},c}$ -- this quantity appears in the error bounds we establish below. 
 
 %Nevertheless, a positive $\kappa_{\mathcal{E},c}$ exists almost surely since the numerator is positive with probability one under A1. 
 
@@ -219,7 +219,7 @@ The quantity $\kappa_{\mathcal{E},c}$ is needed to establish a lower bound on th
 
 % With assumptions A1 and A2, we can establish an error bound for $\hat{\beta} - \beta_*$ based on the tuning parameter $\lambda$, the number of nonzero entries in $\beta_*$, and $\kappa_{\mathcal{E},c}$. The proof of Proposition 1 can be found in the Supplementary Material. 
 \begin{prop}
-Assume A1 is true. Let $U_* D_* V_*' = {\rm svd}(Y - X\beta_*)$. For any constant $c > 1$,  if $c \hspace{1pt} \|X'U_* V_*'\|_{\rm max} \leq \sqrt{n} \lambda$, then
+Assume A1 is true. Let $(U_*, D_*, V_*) = {\rm svd}(Y - X\beta_*)$. For any constant $c > 1$,  if $c \hspace{1pt} \|X'U_* V_*'\|_{\rm max} \leq \sqrt{n} \lambda$, then
 $\|\hat{\beta} - \beta_*\|_F \leq \frac{\bar{c}}{\kappa_{\mathcal{E},c}}\lambda \sqrt{s}.$
 If, in addition, A2 is also true, then the distribution of $X'U_*V_*'$ does not depend on $\Omega_*$. 
 \end{prop}
@@ -247,9 +247,9 @@ The penalized solution, however, does not coincide with the penalized least squa
  \begin{equation}  \frac{1}{\sqrt{n}} X'(Y - X\hat{\beta})[(Y - X\hat{\beta})'(Y - X\hat{\beta})]^{-\frac{1}{2}} \in \lambda \partial \mathcal{P}(\hat{\beta})\label{eq:first_order}
  \end{equation}
 where $\partial \mathcal{P}(\hat{\beta})$ is the subgradient of $\mathcal{P}$ evaluated at $\hat{\beta}.$  The left hand side of condition \eqref{eq:first_order} could instead be written in terms of the singular vectors of $Y - X\hat{\beta}$ since
-$ X'(Y - X\hat{\beta})[(Y - X\hat{\beta})'(Y - X\hat{\beta})]^{-\frac{1}{2}} = X'U_{\hat{\beta}}V'_{\hat{\beta}}$ where $U_{\hat{\beta}}D_{\hat{\beta}}V_{\hat{\beta}}' = {\rm svd}(Y - X \hat{\beta})$.
+$ X'(Y - X\hat{\beta})[(Y - X\hat{\beta})'(Y - X\hat{\beta})]^{-\frac{1}{2}} = X'U_{\hat{\beta}}V'_{\hat{\beta}}$ where $(U_{\hat{\beta}}, D_{\hat{\beta}}, V_{\hat{\beta}}) = {\rm svd}(Y - X \hat{\beta})$.
 If $Y - X\hat{\beta}$ has fewer than $q$ nonzero singular values, the first order conditions for \eqref{eq:MSRL} are $0 \in -\frac{1}{\sqrt{n}}X'(U_{\hat{\beta}}V_{\hat{\beta}}' + W_{\hat{\beta}}) + \lambda \partial \mathcal{P}(\hat{\beta}),$
-where $W_{\hat{\beta}} \in \{W \in \mathbb{R}^{n \times q}: \|W\| \leq 1, U_{\hat{\beta}}'W = 0,   WV_{\hat{\beta}} = 0, U_{\hat{\beta}}D_{\hat{\beta}}V_{\hat{\beta}}' = {\rm svd}(Y - X \hat{\beta})\}.$
+where $W_{\hat{\beta}} \in \{W \in \mathbb{R}^{n \times q}: \|W\| \leq 1, U_{\hat{\beta}}'W = 0,   WV_{\hat{\beta}} = 0, (U_{\hat{\beta}}, D_{\hat{\beta}}, V_{\hat{\beta}}) = {\rm svd}(Y - X \hat{\beta})\}.$
 \end{remark}
 See the proof of Lemma \ref{lemma:grad} of the Supplementary Material for the derivation of Remark 2.
 Of course, $Y - X\hat{\beta}$ can only have $q$ nonzero singular values when $n > q$ and when $\lambda$ is sufficiently large. In these cases, we use \eqref{eq:first_order} as a termination criterion -- see Section 3.3. %In the cases where $Y - X\hat{\beta}$ does not have $q$ nonzero singular values, we use an algorithm which allows us to check the KKT conditions without needing to check the first order conditions directly.
@@ -291,7 +291,6 @@ When $p$ is large, the second step of the ADMM algorithm, \eqref{eq:beta_update}
 % which can be solved efficiently in two steps: 
 % $$ {\rm (i) } \hspace{3pt} UDV' \leftarrow \texttt{svd}(Y + \rho^{-1}\Gamma^{(k-1)} - X\beta^{(k)}), \quad {\rm (ii) }\hspace{3pt} \Theta^{(k)} \leftarrow U \{ \texttt{pmax}(D - (\rho\sqrt{n})^{-1} I_r, 0) \} V'.$$
 To avoid solving \eqref{eq:penalized_reg} at every iteration, we instead minimize a majorizing function of $\mathcal{G}_{\rho}(\beta, \Phi^{(k+1)}, \Gamma^{(k)})$ constructed at the previous iterate $\beta^{(k)}.$ Specifically, we majorize $\mathcal{G}_{\rho}(\beta, \Phi^{(k+1)}, \Gamma^{(k)})$ in \eqref{eq:beta_update} with 
-\vspace{-20pt}
 \begin{equation}
 \mathcal{M}_{\rho, \eta}(\beta, \Phi^{(k+1)}, \Gamma^{(k)}; \beta^{(k)}) \equiv \mathcal{G}_\rho(\beta, \Phi^{(k+1)}, \Gamma^{(k)}) + \frac{\rho}{2} {\rm tr}\{ (\beta - \beta^{(k)})'Q_\eta(\beta - \beta^{(k)})\},\notag
 \end{equation}
@@ -323,7 +322,7 @@ The termination conditions we use are based on the dual and primal residuals sug
 \begin{spacing}{1.15}
 \begin{algorithmic}[1]
 \Require Initialize $\rho > 0$, $\eta > \varphi_1(X'X)$, $\tilde{\lambda} = \sqrt{n}\lambda$, $\tau \in (0, \frac{1 + \sqrt{5}}{2})$, and $k=0$.
-\State Decompose $UDV' = {\rm svd}(Y + \rho^{-1}\Gamma^{(k)} - X\beta^{(k)})$. 
+\State Decompose $(U,D,V) = {\rm svd}(Y + \rho^{-1}\Gamma^{(k)} - X\beta^{(k)})$. 
 \State Compute $\Phi^{(k+1)} \leftarrow U \{ \texttt{pmax}(D - \rho^{-1}, 0) \} V'$
 \State Compute $\beta^{(k+1)} \leftarrow {\rm Prox}_{(\rho \eta)^{-1}\tilde{\lambda} \mathcal{P}} \left\{ \beta^{(k)} + \eta^{-1} X'\left(Y + \rho^{-1} \Gamma^{(k)} - \Phi^{(k+1)} - X\beta^{(k)}\right)\right\}$
 \State Compute $\Gamma^{(k+1)} \leftarrow \Gamma^{(k)} + \tau \rho(Y - X\beta^{(k+1)} - \Phi^{(k+1)})$
@@ -337,7 +336,7 @@ The termination conditions we use are based on the dual and primal residuals sug
 
 \subsection{Fast first order algorithm for large $n$}
 The nuclear norm is non-differentiable in general. The subgradient of the nuclear norm of the residual matrix with respect to $\beta$ is: 
-$$ \partial \|Y - X\beta\|_* = \left\{- X'U_\beta V_\beta' - X'W:  \|W\| \leq 1, U_\beta'W = WV_\beta = 0, U_\beta D_\beta V_\beta' = {\rm svd}(Y - X \beta) \right\},$$
+$$ \partial \|Y - X\beta\|_* = \left\{- X'U_\beta V_\beta' - X'W:  \|W\| \leq 1, U_\beta'W = WV_\beta = 0, (U_\beta, D_\beta, V_\beta) = {\rm svd}(Y - X \beta) \right\},$$
 for example, see \citet{watson1992characterization}.
 However, when $Y - X\beta$ has $q$ non-zero singular values, the subgradient of $\|Y - X\beta\|_*$ is a matrix in $\mathbb{R}^{p \times q}:$
 \begin{equation}\label{eq:gradient_NN}
@@ -378,11 +377,11 @@ are satisfied by $\beta^{(k+1)}$.
 \caption{Monotone accelerated proximal gradient descent for \eqref{eq:MSRL}}
 \begin{spacing}{1.15}
 \begin{algorithmic}[1]
-\Require Initialize $\beta^{(0)} \in \mathbb{R}^{p \times q}$, $\beta^{(-1)} = \beta^{(0)}$ $t_0=1$, $\alpha^{(0)} = 1$, $\alpha^{(-1)} = 1$, $\gamma \in (0,1)$, and $\hat{U}\hat{D}\hat{V}' = {\rm svd}(Y - X \beta^{(0)}).$ Set $k=0$ and go to Step 1. 
+\Require Initialize $\beta^{(0)} \in \mathbb{R}^{p \times q}$, $\beta^{(-1)} = \beta^{(0)}$ $t_0=1$, $\alpha^{(0)} = 1$, $\alpha^{(-1)} = 1$, $\gamma \in (0,1)$, and $(\hat{U}, \hat{D}, \hat{V}) = {\rm svd}(Y - X \beta^{(0)}).$ Set $k=0$ and go to Step 1. 
 \State Compute $\Gamma^{(k)} \leftarrow \beta^{(k)} + \left(\frac{\alpha^{(k-1)} - 1}{\alpha^{(k)}}\right) \left(\beta^{(k)} - \beta^{(k-1)}\right).$
-\State Decompose $\tilde{U}\tilde{D}\tilde{V}' = {\rm svd}(Y - X \Gamma^{(k)})$.
+\State Decompose $(\tilde{U}, \tilde{D}, \tilde{V}) = {\rm svd}(Y - X \Gamma^{(k)})$.
 	\State Compute $\tilde{\beta} \leftarrow {\rm Prox}_{ \frac{t_k\lambda}{\tau} \mathcal{P}} \left[\Gamma^{(k)} + \frac{t_k}{\sqrt{n}}X'\tilde{U}\tilde{V}' \right].$
-	\State Decompose $\bar{U}\bar{D}\bar{V}' = {\rm svd}(Y - X\tilde{\beta})$. 
+	\State Decompose $(\tilde{U}, \tilde{D}, \tilde{V}) = {\rm svd}(Y - X\tilde{\beta})$. 
  	\State If ${\rm tr}(\bar{D})  < {\rm tr}(\tilde{D}) + 
  	{\rm tr}\left[\tilde{V}\tilde{U}'X(\Gamma^{(k)} - \tilde{\beta})\right] + \frac{\sqrt{n}}{2t_k}\|\Gamma^{(k)} - \tilde{\beta}\|_F^2$, go to Step 6. Else, set $t_k = \gamma t_k$ and return to Step 3.
  	\State If ${\rm tr}(\bar{D}) + \sqrt{n}\lambda \mathcal{P}(\tilde{\beta}) \leq {\rm tr}(\hat{D}) + \sqrt{n}\lambda \mathcal{P}(\beta^{(k)})$, set $\beta^{(k+1)} \leftarrow \tilde{\beta}$ and $\hat{D} \leftarrow \bar{D}$. Else, set $\beta^{(k+1)} \leftarrow \beta^{(k)}$. 
@@ -399,7 +398,7 @@ One important feature of \eqref{eq:MSRL} is that the computational complexity of
 
 In Section \ref{subsec:TP_sel}, we discuss approaches for tuning parameter selection based on our theoretical results. We also found that selecting the tuning parameter $\lambda$ by minimizing prediction error in a validation set or through $K$-fold cross validation could perform well in terms of prediction accuracy. In our default implementation, we use cross-validation and automatically prescribe a set of candidate tuning parameters based on the following remark. 
 
-\begin{remark} Suppose $n > q$ and let $U_y D_y V_y' = {\rm svd}(Y)$. If \textit{(i)} $\mathcal{P}(\beta) = \sum_{j,k}|\beta_{j,k}|$ and $\lambda > \frac{1}{\sqrt{n}}\|X'U_y V_y'\|_{\rm max}$; \textit{(ii)} $\mathcal{P}(\beta) = \sum_{j}(\sum_k \beta^2_{j,k})^{1/2}$ and $\lambda > \frac{1}{\sqrt{n}}\max_{j}\|[X'U_yV_y']_{j,\cdot}\|_2$; or \textit{(iii)} $\mathcal{P}(\beta) = \|\beta\|_*$ and $\lambda > \frac{1}{\sqrt{n}}\|X'U_y V_y\|$;
+\begin{remark} Suppose $n > q$ and let $(U_y, D_y, V_y) = {\rm svd}(Y)$. If \textit{(i)} $\mathcal{P}(\beta) = \sum_{j,k}|\beta_{j,k}|$ and $\lambda > \frac{1}{\sqrt{n}}\|X'U_y V_y'\|_{\rm max}$; \textit{(ii)} $\mathcal{P}(\beta) = \sum_{j}(\sum_k \beta^2_{j,k})^{1/2}$ and $\lambda > \frac{1}{\sqrt{n}}\max_{j}\|[X'U_yV_y']_{j,\cdot}\|_2$; or \textit{(iii)} $\mathcal{P}(\beta) = \|\beta\|_*$ and $\lambda > \frac{1}{\sqrt{n}}\|X'U_y V_y\|$;
 then $\hat{\beta} = 0.$ 
 \end{remark}
 Thus, we set $\lambda_{\rm max}$ equal to the upper bound established in Remark 3 and set $\lambda_{\rm min} = \delta \lambda_{\rm max}$ where $\delta < 1$ is some constant, e.g., we set $\delta = 0.1$ in simulations. We then consider tuning parameters from  $\lambda_{\rm max}$ to $\lambda_{\rm min}$ equally spaced on a log-base-2 scale. We found that these choices of $\lambda_{\rm max}$ also seemed to work well when $n < q$, although they are not sufficient to guarantee that $\hat{\beta} = 0$ in this setting.
@@ -513,7 +512,7 @@ Calibrated & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 4.80 & 4.85 & 4.86 & 4.86 & 4.89
 \end{table}
 
 \subsection{Theoretical tuning results}\label{subsec:TP_sel}
-Based on our theoretical results, we also studied selecting tuning parameters for \eqref{eq:MSRL} in two more computationally efficient ways: (i) based on quantiles of the empirical distribution of the random variable $\frac{c}{\sqrt{n}}\|X'O^{(n)}_q\|_{\rm max}$ where $O$ is a random matrix whose distribution is uniform over the set of $n \times q$ orthogonal matrices (i.e., $O^{(n)}_q$ such that ${O^{(n)}_q}'O^{(n)}_q = I_q$) and (ii) based on the analytic expression from Theorem 1. We used these approaches with $\xi$ varying for Models 1 and 2.  Note that these approaches require fitting \eqref{eq:MSRL} for only a single tuning parameter, and thus, are far more computationally efficient than any of the competing methods.
+Based on our theoretical results, we also studied selecting tuning parameters for \eqref{eq:MSRL} in two more computationally efficient ways: (i) based on quantiles of the empirical distribution of the random variable $\frac{c}{\sqrt{n}}\|X'O^{(n)}_q\|_{\rm max}$ where $O$ is a random matrix whose distribution is uniform over the set of $n \times q$ semi-orthogonal matrices (i.e., $O^{(n)}_q$ such that ${O^{(n)}_q}'O^{(n)}_q = I_q$) and (ii) based on the analytic expression from Theorem 1. We used these approaches with $\xi$ varying for Models 1 and 2.  Note that these approaches require fitting \eqref{eq:MSRL} for only a single tuning parameter, and thus, are far more computationally efficient than any of the competing methods.
 
 To approximate the distribution of the random variable used in (i), we generated 10,000 orthogonal matrices $O^{(n)}_q$ independently by generating $U \in \mathbb{R}^{n \times q}$ whose entries are iid ${\rm N}(0,1)$ and setting $O^{(n)}_q = U(U'U)^{-1/2}$ \citep{eaton}. 
 
@@ -600,7 +599,7 @@ We first provide a number of lemmas which will be useful for establishing result
 
 We first state a result from \citet{eaton}, which will be used throughout our proofs. This statement follows immediately from their proof of their Proposition 7.1. 
 \begin{lemma}(\citet{eaton})\label{lemma:eaton}
-Suppose $Z \in \mathbb{R}^{n \times q}$ is a random matrix which has $q$ singular values almost surely and suppose $Z$ is left-spherical, i.e., for any $n \times n$ orthogonal matrix $O_n^{(n)}$, $O_n^{(n)} Z$ has the same matrix variate distribution as $Z$. Let $U_Z D_Z V_Z' = {\rm svd}(Z)$. Then, $Z(Z'Z)^{-1/2}  = U_Z V_Z'$ follows a uniform distribution of the set of $n \times q$ semiorthogonal matrices, i.e., the set of matrices $W_q^{(n)} \in \mathbb{R}^{n \times q}$ such that ${W_q^{(n)}}'W_q^{(n)} = I_q$.
+Suppose $Z \in \mathbb{R}^{n \times q}$ is a random matrix which has $q$ singular values almost surely and suppose $Z$ is left-spherical, i.e., for any $n \times n$ orthogonal matrix $O_n^{(n)}$, $O_n^{(n)} Z$ has the same matrix variate distribution as $Z$. Let $(U_Z, D_Z, V_Z) = {\rm svd}(Z)$. Then, $Z(Z'Z)^{-1/2}  = U_Z V_Z'$ follows a uniform distribution of the set of $n \times q$ semiorthogonal matrices, i.e., the set of matrices $W_q^{(n)} \in \mathbb{R}^{n \times q}$ such that ${W_q^{(n)}}'W_q^{(n)} = I_q$.
 \end{lemma}
 
 \begin{lemma}\label{lemma:grad}
@@ -619,14 +618,14 @@ To establish the subgradient, we first apply the chain rule for subdifferentials
 \begin{equation}\label{eq:partial1}
 \partial_\beta \|Y - X\beta\|_* = \left\{ - X'H: H \in \partial_B \|B\|_*\mid_{B = Y - X\beta} \right\}.
 \end{equation} 
-From \citet{watson1992characterization}, letting $U_BD_BV_B' = {\rm svd}(B)$, we have 
+From \citet{watson1992characterization}, letting $(U_B, D_B, V_B) = {\rm svd}(B)$, we have 
 \begin{equation}\label{eq:partial2}
  \partial_B\|B\|_* = \left\{UV' + W: W \in \mathbb{R}^{p \times q}, \|W\|\leq 1, U_B'W = 0, W V_B = 0 \right\}.
  \end{equation}
 Hence, combining \eqref{eq:partial1} and \eqref{eq:partial2},
 $$ \partial_\beta \|Y - X\beta\|_*  = \left\{ -X'U_\beta V_\beta' - X'W:  \|W\|\leq 1, U_\beta'W = 0, W V_\beta = 0\right\}.$$
 However, by the rank-nullity theorem, when $Y - X\beta_*$ has $q$ nonzero singular values (i.e., is full column rank), the only such $W$ which can satisfy both $U_\beta'W = 0$ and $W B_\beta = 0$ is $W = 0$. Thus, in this case, the subgradient is a single point so can write
-$\nabla_\beta \|Y - X\beta_*\|_* = - X'U_* V_*'$ where $U_* D_* V_*' = {\rm svd}(Y - X\beta_*). \quad\quad \blacksquare$
+$\nabla_\beta \|Y - X\beta_*\|_* = - X'U_* V_*'$ where $(U_*, D_*, V_*) = {\rm svd}(Y - X\beta_*). \quad\quad \blacksquare$
 
 \bigskip
 % In the following lemmas, we refer to the $\ell_1$-penalized version of \eqref{eq:MSRL}. 
@@ -634,7 +633,7 @@ $\nabla_\beta \|Y - X\beta_*\|_* = - X'U_* V_*'$ where $U_* D_* V_*' = {\rm svd}
 \begin{lemma}\label{RSClemma}
 Assume A1 is true. Then, for all $\Delta \in \mathcal{C}(\mathcal{S}, c)$, 
 $$ \frac{1}{\sqrt{n}}\|Y - X\beta_* - X\Delta\|_* - \frac{1}{\sqrt{n}}\|Y - X\beta_*\|_* \geq \kappa \|\Delta\|_F^2 - \frac{1}{\sqrt{n}}{\rm tr}(\Delta'X'U_*V_*')$$
-where $U_*D_*V_*' = {\rm svd}(Y - X\beta_*)$. 
+where $(U_*, D_*, V_*) = {\rm svd}(Y - X\beta_*)$. 
 \end{lemma}
 \noindent \textit{Proof of Lemma \ref{RSClemma}.} First, recall that the nuclear norm can be equivalently written 
 $$ \|A\|_* = \sup_{\|Q\| \leq 1} {\rm tr}(Q'A).$$
@@ -802,7 +801,7 @@ By construction,
 \end{align*}
 
 \subsection{Stochastic approximation of the gradient}
-Define $\mathcal{H}$ as a randomly selected subset of $\left\{1, \dots, n\right\}$ such that the cardinality of $\mathcal{H}$, ${\rm card}(\mathcal{H})$, is much larger than $q$ but smaller than $n$. Then, let $[Y - X\beta]_{\mathcal{H}}$ and $X_\mathcal{H}$ be the submatrices $Y - X \beta$ and $X$ containing only the rows indexed by $\mathcal{H}$. Similarly let $U_{\mathcal{H}(\beta)} D_{\mathcal{H}(\beta)} V'_{\mathcal{H}(\beta)} = {\rm svd}([Y - X\beta]_{\mathcal{H}})$. Then, we can efficiently approximate the gradient from \eqref{eq:gradient_NN} since, when $n > {\rm card}(\mathcal{H}) \gg q$,
+Define $\mathcal{H}$ as a randomly selected subset of $\left\{1, \dots, n\right\}$ such that the cardinality of $\mathcal{H}$, ${\rm card}(\mathcal{H})$, is much larger than $q$ but smaller than $n$. Then, let $[Y - X\beta]_{\mathcal{H}}$ and $X_\mathcal{H}$ be the submatrices $Y - X \beta$ and $X$ containing only the rows indexed by $\mathcal{H}$. Similarly let $(U_{\mathcal{H}(\beta)}, D_{\mathcal{H}(\beta)}, V_{\mathcal{H}(\beta)}) = {\rm svd}([Y - X\beta]_{\mathcal{H}})$. Then, we can efficiently approximate the gradient from \eqref{eq:gradient_NN} since, when $n > {\rm card}(\mathcal{H}) \gg q$,
 $X'U_\beta V_\beta' \approx X_{\mathcal{H}}'U_{\mathcal{H}(\beta)}V'_{\mathcal{H}(\beta)},$ reducing the per iteration complexity of Algorithm 2 to $O\left\{{\rm card}(\mathcal{H})(q^2 + pq)\right\}$.
 
 \subsection{Method for refitting with unstructured covariance}
