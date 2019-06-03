@@ -1,0 +1,11 @@
+Package: MSRL
+Type: Package
+Title: The Multivariate Square-root Lasso
+Version: 0.1
+Date: 2019-06-03
+Author: Aaron J. Molstad <amolstad@ufl.edu>
+Maintainer: Aaron J. Molstad <amolstad@ufl.edu>
+Description: Perform cross-validation, prediction, and extract coefficients from fitted models for the multivariate square-root lasso. 
+License: GPL-2
+LazyData: TRUE
+NeedsCompilation: yes
