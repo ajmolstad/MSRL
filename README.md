@@ -1,2 +1,2 @@
 # Multivariate square-root lasso
-Repository for MSRL article
+Repository for "Insights and algorithms for the multivariate square-root lasso".
