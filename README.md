@@ -1,2 +1,2 @@
 # MSRL
-Repository for MSRL R package
+Repository for MSRL article
