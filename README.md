@@ -1,2 +1,2 @@
-# Multivariate square-root lasso
-Repository for "Insights and algorithms for the multivariate square-root lasso".
+# Multivariate square-root lasso R package
+Repository for MSRL R pacakge
