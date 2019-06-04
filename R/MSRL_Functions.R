@@ -66,7 +66,7 @@ AccPG <- function(y, x, beta, lam1, weight, tol, maxiter = 1e4, quiet = FALSE){
 	      	betakm1 <- betak
 	      	betak <- betakp1
 	      	if(sum(inner.temp$d < .001) > 0){
-	        	stop("Error!!!!")
+	        	stop("Switching to ADMM -----> ")
 	      	}
 	      
 	      	alphakm1 <- alphak 
@@ -92,8 +92,8 @@ AccPG <- function(y, x, beta, lam1, weight, tol, maxiter = 1e4, quiet = FALSE){
 	        	# print results if not quiet 
 	        	# -------------------------------
 	        	if(!quiet){
-			        if(k.iter %% 50 == 0){
-			          cat(k.iter, ": t1 = ", t1, "t2 = ", t2, "\n")
+			        if(k.iter %% 10 == 0){
+			          cat(k.iter, ": r1 = ", t1, "r2 = ", t2, "\n")
 			        }
 			    }
 
@@ -102,6 +102,9 @@ AccPG <- function(y, x, beta, lam1, weight, tol, maxiter = 1e4, quiet = FALSE){
 		        }
 
 		        if(obj[k.iter - 3] - obj[k.iter] < tol/abs(h.orig)){
+		        	if(!quiet){
+		        		cat("# --------------- ", "\n")
+		        	}
 		          outeriter <- FALSE
 		        }
 
@@ -110,6 +113,9 @@ AccPG <- function(y, x, beta, lam1, weight, tol, maxiter = 1e4, quiet = FALSE){
 	      	k.iter <- k.iter + 1
 	      
 	      	if(k.iter > max.iter){
+	      		if(!quiet){
+		        	cat("# --------------- ", "\n")
+		        }
 	        	outeriter <- FALSE
 	      	}
 
@@ -156,13 +162,16 @@ AccPG <- function(y, x, beta, lam1, weight, tol, maxiter = 1e4, quiet = FALSE){
 			r1 <- sum((Y - Xbetakm1 - Omegak)^2); 
 			s1 <- sum(crossprod(rho*X, Gammak - Gammakm1)^2)
 
-			if(k.iter%%500 == 0){
-				cat("r1 = ", r1, "; s1 = ", s1, "\n")
+			if(!quiet){
+				if(k.iter%%500 == 0){
+					cat("r1 = ", r1, "; s1 = ", s1, "\n")
+				}
 			}
 
 			if(r1 < sqrt(n)*tol & s1 < tol){
 				iterating = FALSE;
 			}
+
 		# update step size
 		if(k.iter%%10 == 0){
 			if(r1 > 10*s1){
@@ -267,7 +276,7 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
 		if(!ADMM.temp){
 			
 			temp <- try(AccPG(y = y, x = x, beta = beta.old, lam1 = lambda.vec[kk], weight = weight, 
-  			tol = tol, maxiter = 1e4, quiet=inner.quiet))
+  			tol = tol, maxiter = 1e4, quiet=inner.quiet), silent=TRUE)
 
   			if(class(temp) == "try-error"){
 
@@ -281,6 +290,10 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
 				beta.old <- temp$beta
   			  	beta.full[,kk] <- c(beta.old)
   			  	sparsity.mat[kk] <- sum(beta.old!=0)
+  			  		if(!quiet){
+  			  		cat(kk, ": non-zero = ", sum(beta.old!=0), "\n")
+  			  		cat("# ------------------------------ ", "\n")
+  			  	}
   			  
   			} else { 
   			  
@@ -401,7 +414,7 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
 				if(!ADMM){
 					
 					temp <- try(AccPG(y = y.inner, x = x.inner, beta = beta.old, lam1 = lambda.vec[kk], weight = weight, 
-		  			tol = tol, maxiter = 1e4, quiet=inner.quiet))
+		  			tol = tol, maxiter = 1e4, quiet=inner.quiet), silent=TRUE)
 
 		  			if(class(temp) == "try-error"){
 
@@ -434,7 +447,7 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
 
 				residual <- (y.test - x.test%*%temp$beta)
 				errs_pred[kk, k] <- sum((residual)^2)
-	   			errs_wpred[kk, k] <- sum(diag((residual)%*%diag(1/apply(Y[-cv.index[[k]], ], 2, var))%*%t(residual)))
+	   			errs_wpred[kk, k] <- sum(diag((residual)%*%diag(1/apply(Y[cv.index[[k]], ], 2, var))%*%t(residual)))
 	   			inner.temp <- svd(residual)$d
 	   			errs_spec[kk, k] <- max(inner.temp)
 	   			errs_nuc[kk, k] <- sum(inner.temp)
@@ -456,9 +469,9 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
 		errs_nuc <- NULL
 	}
 
-	if(!is.null(errs_wpred)){
+	if(!is.null(errs_pred)){
 
-		inds <- which(rowSums(errs_wpred) == min(rowSums(errs_wpred)), arr.ind = TRUE)
+		inds <- which(rowSums(errs_pred) == min(rowSums(errs_pred)), arr.ind = TRUE)
 		lam.min <- lambda.vec[inds]
 
 	} else {
