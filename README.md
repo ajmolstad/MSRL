@@ -1,2 +1,2 @@
 # MSRL
-Repository for MSRL R pacakge 
+An R package for fitting the multivariate square-root lasso estimator
