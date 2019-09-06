@@ -6,7 +6,7 @@ output:
   html_document:
     keep_md: true
 ---
-Please send comments or feedback to $\texttt{amolstad@ufl.edu}$. 
+Please send comments or feedback to $\texttt{amolstad@ufl.edu}$, and report issues as https://github.com/ajmolstad/MSRL.
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -19,11 +19,11 @@ library(Matrix)
 source("~/Documents/GitHub/MSRL/R/MSRL_Functions.R")
 ```
 ### The multivariate square-root lasso
-The multivariate square-root lasso estimator, in full generality, is
+The multivariate square-root lasso estimator is
 \begin{equation}\label{eq:MSRL}
-\arg\min_\beta \left\{ \frac{1}{\sqrt{n}}\|\mathbf{Y} - \mathbf{X}\beta\|_* + \lambda \sum_{j,k}w_{j,k}|\beta_{j,k}|\right\}.
+\arg\min_{\beta \in \mathbb{R}^{p \times q}} \left\{ \frac{1}{\sqrt{n}}\|\mathbf{Y} - \mathbf{X}\beta\|_* + \lambda \sum_{j,k}w_{j,k}|\beta_{j,k}|\right\}.
 \end{equation}
-where the $w_{j,k}$ are weights to be defined later. Note that here, the $\mathbf{Y}$ and $\mathbf{X}$ in the definition have been centered by their columnwise means (to remove the intercept). The $Y$ and $X$ input into the function should not be centered. 
+where $\|\cdot\|_*$ is the nuclear norm, i.e., the norm which sums the singular values of its matrix argument, and the $w_{j,k}$ are weights to be defined by the user Note that here, the $\mathbf{Y}$ and $\mathbf{X}$ in the definition have been centered by their columnwise means (to remove the intercept). The $Y$ and $X$ input into the function should not be centered. The tuning parameter $\lambda >0$ is user specified as well: we provide functions below to help the user determine an appropriate value for $\lambda$. 
 
 
 ### Generate data
@@ -78,21 +78,20 @@ First, we show how to fit the model without cross-validation. By setting the arg
 mod1 <- MSRL.cv(X = X, Y = Y, nlambda = 10, standardize = FALSE, ADMM = FALSE, nfolds = NULL,  weighted = FALSE,  delta = .25, tol = 1e-8, quiet = FALSE, inner.quiet=TRUE)
 ```
 
-If we set $\texttt{inner.quiet = FALSE}$ and $\texttt{ADMM = FALSE}$, we also print the residuals based on the first order conditions printed after every 50 iterations.
+If we set $\texttt{inner.quiet = FALSE}$ and $\texttt{ADMM = FALSE}$, we also print $r_1$ and $r_2$ defined below. These quantities measure whether the first order conditions are satisfied and will print after every 50 iterations.
 $$ r_1 = \frac{\sum_{j,k}  1\left(\hat{\beta}_{j,k} = 0 \cap |[XUV']_{j,k}| \geq \sqrt{n} w_{j,k}\lambda\right) }{\sum_{j,k}  1(\hat{\beta}_{j,k} = 0)},$$
 and 
 $$ r_2 = \max_{j,k} |\frac{1}{\sqrt{n}}[XUV']_{j,k} - w_{j,k}\lambda {\rm sign}(\hat{\beta}_{j,k})|$$
-where $(U,D,V) = {\rm svd}(Y - X\hat{\beta})$.
-This argument may be useful if convergence is slow. 
+where $(U,D,V) = {\rm svd}(Y - X\hat{\beta})$. This argument may be useful if convergence is slow with default settings. 
 
 ```{r fit model innerquiet,cache=TRUE, include = TRUE}
 mod2 <- MSRL.cv(X = X, Y = Y, nlambda = 10, standardize = FALSE, ADMM = FALSE, nfolds = NULL, weighted = FALSE,   delta = .25, tol = 1e-8, quiet = TRUE, inner.quiet=FALSE)
 ```
-Checking the out, we have: 
+Checking the output, we have: 
 ```{r, include = TRUE, cache=TRUE}
 str(mod2)
 ```
-Note that $\beta$ for all candidate tuning parameters is stored as a sparse matrix -- to extract coefficients, use the MSRL.coef function detailed below. 
+Note that $\beta$ for all candidate tuning parameters is stored as a sparse matrix -- to extract coefficients, use the $\texttt{MSRL.coef}$ function detailed below. 
 
 
 ### Cross-validation
@@ -135,7 +134,7 @@ where $\bar{\sigma_{y}}_{k}$ is the marginal standard deviation for the $k$th re
 - $\texttt{delta}$ is the parameter $<1$ which specifies the range of candidate tuning parameters we consider. That is, we automatically select $\lambda_{\rm max}$, and we consider tuning parameters as small as 
 $$\lambda_{\rm min}  = \delta \lambda_{\rm max}.$$
 
-- $\texttt{tol}$ is the convergence tolerance. If not the default, we recommend model fitting with \texttt{inner.quiet = TRUE} to track progress. 
+- $\texttt{tol}$ is the convergence tolerance. If the default is not performing well, we recommend model fitting with \texttt{inner.quiet = TRUE} to track progress and adjusting $\texttt{tol}$ as necessary.
 
 ### Predictions 
 We can obtain predicted values for a new set of predictors. As a default tuning parameter after cross-validation, we use the tuning parmaeter which minimizes the square Frobenius norm prediction error.  

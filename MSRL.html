@@ -370,7 +370,7 @@ summary {
 </div>
 
 
-<p>Please send comments or feedback to <span class="math inline">\(\texttt{amolstad@ufl.edu}\)</span>.</p>
+<p>Please send comments or feedback to <span class="math inline">\(\texttt{amolstad@ufl.edu}\)</span>, and report issues as <a href="https://github.com/ajmolstad/MSRL" class="uri">https://github.com/ajmolstad/MSRL</a>.</p>
 <div id="load-package" class="section level3">
 <h3>Load package</h3>
 <p>We first load in the R package from Github.</p>
@@ -379,9 +379,9 @@ source(&quot;~/Documents/GitHub/MSRL/R/MSRL_Functions.R&quot;)</code></pre>
 </div>
 <div id="the-multivariate-square-root-lasso" class="section level3">
 <h3>The multivariate square-root lasso</h3>
-<p>The multivariate square-root lasso estimator, in full generality, is <span class="math display">\[\begin{equation}\label{eq:MSRL}
-\arg\min_\beta \left\{ \frac{1}{\sqrt{n}}\|\mathbf{Y} - \mathbf{X}\beta\|_* + \lambda \sum_{j,k}w_{j,k}|\beta_{j,k}|\right\}.
-\end{equation}\]</span> where the <span class="math inline">\(w_{j,k}\)</span> are weights to be defined later. Note that here, the <span class="math inline">\(\mathbf{Y}\)</span> and <span class="math inline">\(\mathbf{X}\)</span> in the definition have been centered by their columnwise means (to remove the intercept). The <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span> input into the function should not be centered.</p>
+<p>The multivariate square-root lasso estimator is <span class="math display">\[\begin{equation}\label{eq:MSRL}
+\arg\min_{\beta \in \mathbb{R}^{p \times q}} \left\{ \frac{1}{\sqrt{n}}\|\mathbf{Y} - \mathbf{X}\beta\|_* + \lambda \sum_{j,k}w_{j,k}|\beta_{j,k}|\right\}.
+\end{equation}\]</span> where <span class="math inline">\(\|\cdot\|_*\)</span> is the nuclear norm, i.e., the norm which sums the singular values of its matrix argument, and the <span class="math inline">\(w_{j,k}\)</span> are weights to be defined by the user Note that here, the <span class="math inline">\(\mathbf{Y}\)</span> and <span class="math inline">\(\mathbf{X}\)</span> in the definition have been centered by their columnwise means (to remove the intercept). The <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span> input into the function should not be centered. The tuning parameter <span class="math inline">\(\lambda &gt;0\)</span> is user specified as well: we provide functions below to help the user determine an appropriate value for <span class="math inline">\(\lambda\)</span>.</p>
 </div>
 <div id="generate-data" class="section level3">
 <h3>Generate data</h3>
@@ -451,7 +451,7 @@ Ytest = Xtest%*%beta + matrix(rnorm(ntest*q), nrow=ntest)%*%Sigmasqrt</code></pr
 ## # ------------------------------  
 ## 10 : non-zero =  269 
 ## # ------------------------------</code></pre>
-<p>If we set <span class="math inline">\(\texttt{inner.quiet = FALSE}\)</span> and <span class="math inline">\(\texttt{ADMM = FALSE}\)</span>, we also print the residuals based on the first order conditions printed after every 50 iterations. <span class="math display">\[ r_1 = \frac{\sum_{j,k}  1\left(\hat{\beta}_{j,k} = 0 \cap |[XUV']_{j,k}| \geq \sqrt{n} w_{j,k}\lambda\right) }{\sum_{j,k}  1(\hat{\beta}_{j,k} = 0)},\]</span> and <span class="math display">\[ r_2 = \max_{j,k} |\frac{1}{\sqrt{n}}[XUV']_{j,k} - w_{j,k}\lambda {\rm sign}(\hat{\beta}_{j,k})|\]</span> where <span class="math inline">\((U,D,V) = {\rm svd}(Y - X\hat{\beta})\)</span>. This argument may be useful if convergence is slow.</p>
+<p>If we set <span class="math inline">\(\texttt{inner.quiet = FALSE}\)</span> and <span class="math inline">\(\texttt{ADMM = FALSE}\)</span>, we also print <span class="math inline">\(r_1\)</span> and <span class="math inline">\(r_2\)</span> defined below. These quantities measure whether the first order conditions are satisfied and will print after every 50 iterations. <span class="math display">\[ r_1 = \frac{\sum_{j,k}  1\left(\hat{\beta}_{j,k} = 0 \cap |[XUV']_{j,k}| \geq \sqrt{n} w_{j,k}\lambda\right) }{\sum_{j,k}  1(\hat{\beta}_{j,k} = 0)},\]</span> and <span class="math display">\[ r_2 = \max_{j,k} |\frac{1}{\sqrt{n}}[XUV']_{j,k} - w_{j,k}\lambda {\rm sign}(\hat{\beta}_{j,k})|\]</span> where <span class="math inline">\((U,D,V) = {\rm svd}(Y - X\hat{\beta})\)</span>. This argument may be useful if convergence is slow with default settings.</p>
 <pre class="r"><code>mod2 &lt;- MSRL.cv(X = X, Y = Y, nlambda = 10, standardize = FALSE, ADMM = FALSE, nfolds = NULL, weighted = FALSE,   delta = .25, tol = 1e-8, quiet = TRUE, inner.quiet=FALSE)</code></pre>
 <pre><code>## 10 : r1 =  0 r2 =  0.0001640287 
 ## # ---------------  
@@ -494,7 +494,7 @@ Ytest = Xtest%*%beta + matrix(rnorm(ntest*q), nrow=ntest)%*%Sigmasqrt</code></pr
 ## 50 : r1 =  0 r2 =  7.580511e-05 
 ## 60 : r1 =  0 r2 =  1.927538e-05 
 ## # ---------------</code></pre>
-<p>Checking the out, we have:</p>
+<p>Checking the output, we have:</p>
 <pre class="r"><code>str(mod2)</code></pre>
 <pre><code>## List of 13
 ##  $ beta        :Formal class 'dgCMatrix' [package &quot;Matrix&quot;] with 6 slots
@@ -519,7 +519,7 @@ Ytest = Xtest%*%beta + matrix(rnorm(ntest*q), nrow=ntest)%*%Sigmasqrt</code></pr
 ##  $ lam.min     : NULL
 ##  $ standardize : logi FALSE
 ##  - attr(*, &quot;class&quot;)= chr &quot;MSRL&quot;</code></pre>
-<p>Note that <span class="math inline">\(\beta\)</span> for all candidate tuning parameters is stored as a sparse matrix – to extract coefficients, use the MSRL.coef function detailed below.</p>
+<p>Note that <span class="math inline">\(\beta\)</span> for all candidate tuning parameters is stored as a sparse matrix – to extract coefficients, use the <span class="math inline">\(\texttt{MSRL.coef}\)</span> function detailed below.</p>
 </div>
 <div id="cross-validation" class="section level3">
 <h3>Cross-validation</h3>
@@ -542,7 +542,7 @@ Ytest = Xtest%*%beta + matrix(rnorm(ntest*q), nrow=ntest)%*%Sigmasqrt</code></pr
 <li><p><span class="math inline">\(\texttt{standardize}\)</span>: this is a TRUE/FALSE argument set to FALSE as default. When false, the <span class="math inline">\(X\)</span> used in model fitting is <span class="math display">\[ \mathbf{X} = X - 1_n \bar{X}',\]</span> where <span class="math inline">\(\bar{X} = n^{-1}\sum_{i=1}^n x_i\)</span>. When TRUE, the <span class="math inline">\(X\)</span> used for model fitting is standardized: <span class="math display">\[ \mathbf{X} = (X - 1_n \bar{X}')/(1_n \bar{\sigma}_X'),\]</span> where <span class="math inline">\(\bar{\sigma}_X\)</span> is the <span class="math inline">\(p\)</span>-dimensional standard deviations for each of the <span class="math inline">\(p\)</span> predictors. All necessary adjustments are made inside the cross-validation function, in addition to both the prediction and coefficient functions.</p></li>
 <li><p><span class="math inline">\(\texttt{weighted}\)</span> is a TRUE/FALSE argument. We do not recommend standardizing the response variables (and do not provide an option to do so in our software) so to adjust the level of penalty applied to <span class="math inline">\(\beta\)</span>. When <span class="math inline">\(\texttt{weighted = FALSE}\)</span>, all <span class="math inline">\(w_{j,k} = 1\)</span>; when <span class="math inline">\(\texttt{weighted = TRUE}\)</span>, all <span class="math display">\[w_{j,k} = \frac{1}{\bar{\sigma_{y}}_{k}},\]</span> where <span class="math inline">\(\bar{\sigma_{y}}_{k}\)</span> is the marginal standard deviation for the <span class="math inline">\(k\)</span>th response variable.</p></li>
 <li><p><span class="math inline">\(\texttt{delta}\)</span> is the parameter <span class="math inline">\(&lt;1\)</span> which specifies the range of candidate tuning parameters we consider. That is, we automatically select <span class="math inline">\(\lambda_{\rm max}\)</span>, and we consider tuning parameters as small as <span class="math display">\[\lambda_{\rm min}  = \delta \lambda_{\rm max}.\]</span></p></li>
-<li><p><span class="math inline">\(\texttt{tol}\)</span> is the convergence tolerance. If not the default, we recommend model fitting with  to track progress.</p></li>
+<li><p><span class="math inline">\(\texttt{tol}\)</span> is the convergence tolerance. If the default is not performing well, we recommend model fitting with  to track progress and adjusting <span class="math inline">\(\texttt{tol}\)</span> as necessary.</p></li>
 </ul>
 </div>
 <div id="predictions" class="section level3">
