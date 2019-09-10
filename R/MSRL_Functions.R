@@ -40,8 +40,8 @@ AccPG <- function(y, x, beta, lam1, weight, tol, maxiter = 1e4, quiet = FALSE){
 	        	betakp1 <- pmax(abs(keep1) - weight*t*lam1, 0)*sign(keep1)
 	        	inner.temp <- svd(y - crossprod(t(x), betakp1), nu = min(n,q), nv = min(n,q))
 	        
-	        	h <- (1/(sqrt(n)))*sum(inner.temp$d) + lam1*sum(abs(weight*betakp1))
-	        	g <- (1/(sqrt(n)))*(sum(temp$d) - sum(keep*(betakp1 - theta))) + (1/(2*t))*sum((betakp1 - theta)^2) + lam1*sum(abs(weight*betakp1))
+	        	h <- (1/(sqrt(n)))*sum(inner.temp$d) #+ lam1*sum(abs(weight*betakp1))
+	        	g <- (1/(sqrt(n)))*(sum(temp$d) - sum(keep*(betakp1 - theta))) + (1/(2*t))*sum((betakp1 - theta)^2) #+ lam1*sum(abs(weight*betakp1))
 	        
 	        	if(h < g){
 	          		inneriter <- FALSE
