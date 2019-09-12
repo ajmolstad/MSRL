@@ -28,7 +28,7 @@ The multivariate square-root lasso estimator is defined as
 \begin{equation}\label{eq:MSRL}
 \arg\min_{\beta \in \mathbb{R}^{p \times q}} \left\{ \frac{1}{\sqrt{n}}\|\mathbf{Y} - \mathbf{X}\beta\|_* + \lambda \sum_{j,k}w_{j,k}|\beta_{j,k}|\right\}.
 \end{equation}
-where $\|\cdot\|_*$ is the nuclear norm, i.e., the norm which sums the singular values of its matrix argument, and the $w_{j,k}$ are weights to be defined by the user Note that here, the $\mathbf{Y}$ and $\mathbf{X}$ in the definition have been centered by their columnwise means (to remove the intercept). The $Y$ and $X$ input into the function should not be centered. The tuning parameter $\lambda >0$ is user specified as well: we provide functions below to help the user determine an appropriate value for $\lambda$. 
+where $\|\cdot\|_*$ is the nuclear norm, i.e., the norm which sums the singular values of its matrix argument, and the $w_{j,k}$ are weights to be defined by the user. Note that here, the $\mathbf{Y}$ and $\mathbf{X}$ in the definition have been centered by their columnwise means (to remove the intercept). The $Y$ and $X$ input into the function should not be centered. The tuning parameter $\lambda >0$ is user specified as well: we provide functions below to help the user determine an appropriate value for $\lambda$. 
 
 
 ### Generate data
@@ -106,7 +106,7 @@ str(mod2)
 Note that $\beta$ for all candidate tuning parameters is stored as a sparse matrix -- to extract coefficients, use the $\texttt{MSRL.coef}$ function detailed below. 
 
 ### Cross-validation
-Now we set \texttt{nfolds = 5} to perform 5-fold cross-validation.  Note that this actually fits the model $\texttt{nfolds} + 1$ times since it first fits the model to the entire dataset. 
+Now we set $\texttt{nfolds = 5}$ to perform 5-fold cross-validation.  Note that this actually fits the model $\texttt{nfolds} + 1$ times since it first fits the model to the entire dataset. 
 ```{r fit model CV1, include = TRUE, cache=TRUE}
 mod3 <- MSRL.cv(X = X, Y = Y, nlambda = 50, standardize = FALSE, ADMM = FALSE, 
                 nfolds = 5,  weighted = FALSE, delta = .1, tol = 1e-8, quiet = TRUE, 
@@ -137,19 +137,19 @@ abline(v = which.min(rowMeans(mod3$err.pred)), lty=2)
 
 The other options work as follows: 
 
-- $\texttt{standardize}$: this is a TRUE/FALSE argument set to FALSE as default. When false, the $X$ used in model fitting is 
+- $\texttt{standardize}$ is a TRUE/FALSE argument set to FALSE as default. When false, the $X$ used in model fitting is 
 $$ \mathbf{X} = X - 1_n \bar{X}',$$
 where $\bar{X} = n^{-1}\sum_{i=1}^n x_i$. When TRUE, the $X$ used for model fitting is standardized: 
 $$ \mathbf{X} = (X - 1_n \bar{X}')/(1_n \bar{\sigma}_X'),$$
 where $\bar{\sigma}_X$ is the $p$-dimensional standard deviations for each of the $p$ predictors. All necessary adjustments are made inside the cross-validation function, in addition to both the prediction and coefficient functions. 
 
-- $\texttt{weighted}$ is a TRUE/FALSE argument. We do not recommend standardizing the response variables (and do not provide an option to do so in our software) so to adjust the level of penalty applied to $\beta$. When $\texttt{weighted = FALSE}$, all $w_{j,k} = 1$; when $\texttt{weighted = TRUE}$, all $$w_{j,k} = \frac{1}{\bar{\sigma_{y}}_{k}},$$
+- $\texttt{weighted}$ is a TRUE/FALSE argument. We do not recommend standardizing the response variables (and do not provide an option to do so in our software) so to adjust the level of penalty applied to $\beta$, we include this option. When $\texttt{weighted = FALSE}$, all $w_{j,k} = 1$; when $\texttt{weighted = TRUE}$, all $$w_{j,k} = \frac{1}{\bar{\sigma_{y}}_{k}},$$
 where $\bar{\sigma_{y}}_{k}$ is the marginal standard deviation for the $k$th response variable. 
 
-- $\texttt{delta}$ is the parameter $<1$ which specifies the range of candidate tuning parameters we consider. That is, we automatically select $\lambda_{\rm max}$, and we consider tuning parameters as small as 
+- $\texttt{delta}$ is the parameter $<1$ which specifies the range of candidate tuning parameters we consider. That is, we automatically select $\lambda_{\rm max}$ (based on the first order conditions), and we consider a range of candidat etuning parameters going from $\lambda_{\rm min}$ to $\lambda_{\rm max}$ where
 $$\lambda_{\rm min}  = \delta \lambda_{\rm max}.$$
 
-- $\texttt{tol}$ is the convergence tolerance. If the default is not performing well, we recommend model fitting with $\texttt{inner.quiet = FALSE}$ to track progress and adjusting $\texttt{tol}$ as necessary.
+- $\texttt{tol}$ is the convergence tolerance. A smaller tolerance leads to a more exact solution.  If the default does not seem to be performing well, we recommend model fitting with $\texttt{inner.quiet = FALSE}$ to track progress and adjusting $\texttt{tol}$ as necessary.
 
 ### Predictions 
 We can obtain predicted values for a new set of predictors. As a default tuning parameter after cross-validation, we use the tuning parmaeter which minimizes the square Frobenius norm prediction error.  
