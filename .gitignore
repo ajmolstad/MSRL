@@ -1,0 +1,3 @@
+#Python files
+*.pyc
+python/msrl.egg-info/*
