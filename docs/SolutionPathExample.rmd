@@ -1,0 +1,140 @@
+---
+title: "Multivariate square-root lasso solution path"
+author: "Aaron J. Molstad"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+In this document, we generate a simple numerical example demonstrating that the solution path of the multivariate square-root lasso is not equivalent to the solution path of the $ell_1$ penalized squared Frobenius-norm estimator. 
+
+```{r setup, cache=TRUE}
+# ----------------------------------------------  
+# Solution path  
+# ----------------------------------------------
+library(MSRL) # download from GitHub
+library(glmnet) 
+set.seed(1)
+p = 5
+n = 7
+q = 2
+
+# --------------------------------
+# Generate predictors
+# --------------------------------
+SigmaX <- matrix(0, nrow=p, ncol=p)
+for(k in 1:p){
+  for(j in 1:p){
+    SigmaX[j,k] <- .7^abs(j-k)
+  }
+}
+diag(SigmaX) <- 1
+eo <- eigen(SigmaX)
+SigmaXsqrt <- eo$vec%*%diag(eo$val^.5)%*%t(eo$vec)
+X <- matrix(rnorm(n*p), nrow=n)%*%SigmaXsqrt
+# -----------------------------------
+# Generate regression coefficients
+# -----------------------------------
+beta <- matrix(0, nrow=p, ncol=q)
+beta[sample(1:(p*q), floor(p*q)*.1, replace=FALSE)] <- .1
+
+# -------------------------------------
+# Generate responses
+# -------------------------------------
+Sigma <- matrix(0, nrow=q, ncol=q)
+for(k in 1:q){
+  for(j in 1:q){
+    Sigma[j,k] <- .95^abs(j-k)
+  }
+}
+diag(Sigma) <- 1
+Sigma <- 3*Sigma
+eo <- eigen(Sigma)
+Sigmasqrt <- eo$vec%*%diag(eo$val^.5)%*%t(eo$vec)
+Y = X%*%beta + matrix(rnorm(n*q), nrow=n)%*%Sigmasqrt
+
+
+
+mod3 <- MSRL.cv(X = X, Y = Y, nlambda = 1000, standardize = FALSE, ADMM = FALSE, 
+                nfolds = NULL,  weighted = FALSE, delta = .05, tol = 1e-14, quiet = TRUE, 
+                inner.quiet=TRUE)
+
+
+
+beta.vec <- matrix(0, nrow=p*q, ncol=1000)
+for(k in 1:length(mod3$lambda.vec)){
+  beta.vec[,k] <- c(MSRL.coef(mod3, lambda = mod3$lambda.vec[k])$beta)
+}
+
+plot(beta.vec[1,], type="l", col="black", ylim=c(min(beta.vec), max(beta.vec)),  ylab=expression(beta), xlab=expression(paste(lambda, " index", "\n")), main="Multivariate square-root lasso path")
+for(k in 2:5){
+  lines(beta.vec[k,], col=k)
+}
+
+for(k in 6:10){
+  lines(beta.vec[k,], col=k-5, lty=2)
+}
+
+
+legend("topleft", legend=paste("Predictor ", c(1:5)),lty=1, col=c(1:5))
+legend("bottomleft", legend=paste("Response ", c(1:2)),lty=c(1,2))
+
+```
+
+
+
+```{r glmnet, cache=TRUE}
+library(glmnet)
+max.lam <- 0
+min.lam <- Inf
+for(kk in 1:q){
+  store <- glmnet(y = Y[,kk], x = X, standardize=FALSE)
+  max.lam <- max(max.lam, max(store$lambda))
+  min.lam <- min(min.lam, min(store$lambda))
+}
+
+lambda <- seq(min.lam*.5, max.lam, length=1000)
+beta.temp <- array(0, dim=c(p,q, length(lambda)))
+
+for(kk in 1:length(lambda)){
+  for(jj in 1:q){
+    store <- glmnet(y = Y[,jj], x = X, lambda = lambda[kk], standardize=FALSE)
+    beta.temp[,jj,kk] <- coef(store)[-1]
+  }
+}
+
+beta.l1 <- matrix(0, nrow=p*q, ncol=1000)
+for(k in 1:1000){
+  beta.l1[,1001-k] <- c(beta.temp[,,k])
+}
+
+beta.l1 <- beta.l1[,c(c(1:400),c(600:1000))]
+
+
+plot(beta.l1[1,], type="l", col="black", ylim = c(-2, 2), ylab=expression(beta), xlab=expression(paste(lambda, " index", "\n")), main="L1-penalized least-squares path")
+for(k in 2:5){
+  lines(beta.l1[k,], col=k)
+}
+abline(v = 400, lty=3)
+for(k in 6:10){
+  lines(beta.l1[k,], col=k-5, lty=2)
+}
+
+```
+
+
+Based on this plot, we can see that in the multivariate square-root lasso, two predictors for response $\#2$ enter the model first, whereas for the multivariate least-squares lasso, one predictor for response $\#2$ enters the model, followed by a predictor for response $\#1$.
+
+
+Below, we print the order of the predictors entering the model. Note that coefficients 1-10 correspond to the coefficients for predictors 1-10 for Response \#1 whereas coefficients 11-20 correspond to the coefficients for predictor 1-10 for Response \#2.
+```{r printorder, echo=FALSE, eval=TRUE, warnings=FALSE}
+# ------------------------------------
+# Get order of predictors variables entering the model 
+# -----------------------------------
+cat("# Multivariate square-root lasso predictor order ---- ", "\n")
+suppressWarnings(sort(unlist(lapply(apply(beta.vec, 1, function(x){which(x!=0)}), min)), decreasing=FALSE, index=TRUE)$ix)
+
+cat("# Multivariate least-squares lasso predictor order ---- ", "\n")
+suppressWarnings(sort(unlist(lapply(apply(beta.l1, 1, function(x){which(x!=0)}), min)), decreasing=FALSE, index=TRUE)$ix)
+```
+Based on the above, we see that predictors enter the model in distinct orders. In particular, its notable that even within one response variable, predictors enter in a different order: for example, with the multivariate square-root lasso, the second response has predictor 5 enter before predictor 1, whereas the $\ell_1$-penalized square Frobenius-norm estimator has predictor 1 than 5 enter the model for the second response. 
