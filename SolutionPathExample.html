@@ -369,7 +369,7 @@ summary {
 </div>
 
 
-<p>In this document, we generate a simple numerical example demonstrating that the solution path of the multivariate square-root lasso is not equivalent to the solution path of the squared Frobenius-norm</p>
+<p>In this document, we generate a simple numerical example demonstrating that the solution path of the multivariate square-root lasso is not equivalent to the solution path of the <span class="math inline">\(ell_1\)</span> penalized squared Frobenius-norm estimator.</p>
 <pre class="r"><code># ----------------------------------------------  
 # Solution path  
 # ----------------------------------------------
@@ -482,6 +482,7 @@ for(k in 6:10){
 <pre><code>##  [1]  4 10  6  1  5  9  8  3  2  7</code></pre>
 <pre><code>## # Multivariate least-squares lasso predictor order ----</code></pre>
 <pre><code>##  [1]  6 10  4  5  1  9  8  3  2  7</code></pre>
+<p>Based on the above, we see that predictors enter the model in distinct orders. In particular, its notable that even within one response variable, predictors enter in a different order: for example, with the multivariate square-root lasso, the second response has predictor 5 enter before predictor 1, whereas the <span class="math inline">\(\ell_1\)</span>-penalized square Frobenius-norm estimator has predictor 1 than 5 enter the model for the second response.</p>
 
 
 
