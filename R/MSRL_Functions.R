@@ -295,15 +295,15 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
         # -------------------------------------------------
         if(!ADMM.temp){
             
-              temp <- try(AccPG(y = y, x = x, beta = beta.old, lam1 = lambda.vec[kk], weight = weight, 
-            tol = tol, maxiter = 1e4, quiet=inner.quiet), silent=TRUE)
+            temp <- try(AccPG(y = y, x = x, beta = beta.old, lam1 = lambda.vec[kk], weight = weight, 
+                    tol = tol, maxiter = 1e4, quiet=inner.quiet), silent=TRUE)
 
             if(class(temp) == "try-error"){
 
                 ADMM.temp <- TRUE
                 temp <- NN_ADMM(Y = y, X = x, Gamma = Gamma, Omega = Omega, 
-                              beta = beta.old, lambda = lambda.vec[kk], weight = weight, 
-                              tol = tol, maxiter = 1e4, rho = .0001, eta = 1.00001*xtxeig, quiet=inner.quiet)
+                            beta = beta.old, lambda = lambda.vec[kk], weight = weight, 
+                              ol = tol, maxiter = 1e4, rho = .0001, eta = 1.00001*xtxeig, quiet=inner.quiet)
   
                 Gamma <- temp$Gamma
                 Omega <- temp$Omega
@@ -330,8 +330,8 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
         } else {
           
             temp <- NN_ADMM(Y = y, X = x, Gamma = Gamma, Omega = Omega, 
-                beta = beta.old, lambda = lambda.vec[kk], weight = weight, 
-                tol = tol, maxiter = 1e4, rho =  .0001, eta = 1.00001*xtxeig, quiet=inner.quiet)
+                    beta = beta.old, lambda = lambda.vec[kk], weight = weight, 
+                    tol = tol, maxiter = 1e4, rho =  .0001, eta = 1.00001*xtxeig, quiet=inner.quiet)
 
             Gamma <- temp$Gamma
             Omega <- temp$Omega
@@ -431,14 +431,14 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
                 if(!ADMM){
                     
                     temp <- try(AccPG(y = y.inner, x = x.inner, beta = beta.old, lam1 = lambda.vec[kk], weight = weight, 
-                    tol = tol, maxiter = 1e4, quiet=inner.quiet), silent=TRUE)
+                            tol = tol, maxiter = 1e4, quiet=inner.quiet), silent=TRUE)
 
                     if(class(temp) == "try-error"){
 
                         ADMM <- TRUE
                         temp <- NN_ADMM(Y = y.inner, X = x.inner, Gamma = Gamma, Omega = Omega, 
-                                      beta = beta.old, lambda = lambda.vec[kk], weight = weight, 
-                                      tol = tol, maxiter = 1e4, rho = .0001, eta = 1.00001*xtxeig, quiet=inner.quiet)
+                                beta = beta.old, lambda = lambda.vec[kk], weight = weight, 
+                                tol = tol, maxiter = 1e4, rho = .0001, eta = 1.00001*xtxeig, quiet=inner.quiet)
                         Gamma <- temp$Gamma
                         Omega <- temp$Omega
                         beta.old <- temp$beta
@@ -452,8 +452,8 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
                 } else {
                   
                     temp <- NN_ADMM(Y = y.inner, X = x.inner, Gamma = Gamma, Omega = Omega, 
-                        beta = beta.old, lambda = lambda.vec[kk], weight = weight, 
-                        tol = tol, maxiter = 1e4, rho =  .0001, eta = 1.00001*xtxeig, quiet=inner.quiet)
+                            beta = beta.old, lambda = lambda.vec[kk], weight = weight, 
+                            tol = tol, maxiter = 1e4, rho =  .0001, eta = 1.00001*xtxeig, quiet=inner.quiet)
                     Gamma <- temp$Gamma
                     Omega <- temp$Omega
                     beta.old <- temp$beta
