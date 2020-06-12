@@ -39,10 +39,10 @@ sessionInfo()
 # Preliminaries
 # --------------------------------
 set.seed(1)
-p = 100
-n = 70
-q = 20
-ntest = 100
+p <- 100
+n <- 70
+q <- 20
+ntest <- 100
 
 # --------------------------------
 # Generate predictors
@@ -76,8 +76,8 @@ for(k in 1:q){
 diag(Sigma) <- 1
 eo <- eigen(Sigma)
 Sigmasqrt <- eo$vec%*%diag(eo$val^.5)%*%t(eo$vec)
-Y = X%*%beta + matrix(rnorm(n*q), nrow=n)%*%Sigmasqrt
-Ytest = Xtest%*%beta + matrix(rnorm(ntest*q), nrow=ntest)%*%Sigmasqrt
+Y <- X%*%beta + matrix(rnorm(n*q), nrow=n)%*%Sigmasqrt
+Ytest <- Xtest%*%beta + matrix(rnorm(ntest*q), nrow=ntest)%*%Sigmasqrt
 ```
 
 ### Model fitting
@@ -85,19 +85,19 @@ First, we show how to fit the model without cross-validation. By setting the arg
 ```{r fit model example, cache = TRUE, include = TRUE}
 mod1 <- MSRL.cv(X = X, Y = Y, nlambda = 10, standardize = FALSE, ADMM = FALSE, 
                 nfolds = NULL,  weighted = FALSE,  delta = .25, tol = 1e-8, quiet = FALSE,
-                inner.quiet=TRUE)
+                inner.quiet = TRUE)
 ```
 
 If we set $\texttt{inner.quiet = FALSE}$ and $\texttt{ADMM = FALSE}$, we also print $r_1$ and $r_2$ defined below. These quantities measure whether the first order conditions are satisfied and will print after every 10 iterations. 
 $$ r_1 = \frac{\sum_{j,k}  1\left(\hat{\beta}_{j,k} = 0 \cap |[X'UV']_{j,k}| \geq \sqrt{n} w_{j,k}\lambda\right) }{\sum_{j,k}  1(\hat{\beta}_{j,k} = 0)},$$
 and 
 $$ r_2 = \max_{(j,k):\hat{\beta_{j,k}} \neq 0} |\frac{1}{\sqrt{n}}[X'UV']_{j,k} - w_{j,k}\lambda {\rm sign}(\hat{\beta}_{j,k})|$$
-where $(U,D,V) = {\rm svd}(Y - X\hat{\beta})$. This argument may be useful if convergence is slow with default settings. We decrease the convergence tolerance to display more output for the sake of example. 
+where $(U,D,V) = {\rm svd}(Y - X\hat{\beta})$. This argument may be useful if convergence is slow with default settings. We decrease the convergence tolerance to display (slightly) more output for the sake of example. 
 
 ```{r fit model innerquiet,cache=TRUE, include = TRUE}
 mod2 <- MSRL.cv(X = X, Y = Y, nlambda = 10, standardize = FALSE, ADMM = FALSE, 
-                nfolds = NULL, weighted = FALSE,   delta = .25, tol = 1e-8, quiet = FALSE,
-                inner.quiet=FALSE)
+                nfolds = NULL, weighted = FALSE,   delta = .1, tol = 1e-16, quiet = FALSE,
+                inner.quiet = FALSE)
 ```
 Checking the output, we have: 
 ```{r, include = TRUE, cache=TRUE}
@@ -109,8 +109,8 @@ Note that $\beta$ for all candidate tuning parameters is stored as a sparse matr
 Now we set $\texttt{nfolds = 5}$ to perform 5-fold cross-validation.  Note that this actually fits the model $\texttt{nfolds} + 1$ times since it first fits the model to the entire dataset. 
 ```{r fit model CV1, include = TRUE, cache=TRUE}
 mod3 <- MSRL.cv(X = X, Y = Y, nlambda = 50, standardize = FALSE, ADMM = FALSE, 
-                nfolds = 5,  weighted = FALSE, delta = .1, tol = 1e-8, quiet = TRUE, 
-                inner.quiet=TRUE)
+                nfolds = 5,  weighted = FALSE, delta = .1, tol = 1e-8, quiet = FALSE, 
+                inner.quiet = TRUE)
 ```
 
 In the output, there are four different metrics used to measure performance in cross-validation. Let $Y_{-k}$ and $X_{-k}$ be the left-out-fold responses and predictors which have been centered (standardized) based on the left-in-fold data. The metrics are: 
