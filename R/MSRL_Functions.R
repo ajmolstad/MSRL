@@ -490,80 +490,80 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
         lam.min <- NULL
     }
 
-        fit <-  list("beta" = beta.full, 
-                    "sparsity.mat" = sparsity.mat,
-                    "err.pred" = errs_pred, 
-                    "err.wpred" = errs_wpred, 
-                    "err.spec" = errs_spec, 
-                    "err.nuc" = errs_nuc, 
-                    "Y.mean" = apply(Y, 2, mean), 
-                    "X.mean" = apply(X, 2, mean),
-                    "Y.sd" = apply(Y, 2, sd), 
-                    "X.sd" = apply(X, 2, sd),
-                    "lambda.vec" = lambda.vec, 
-                    "lam.min" = lam.min,
-                    "standardize" = standardize)
-        class(fit) <- "MSRL"
-        return(fit)
-    }
+    fit <-  list("beta" = beta.full, 
+                "sparsity.mat" = sparsity.mat,
+                "err.pred" = errs_pred, 
+                "err.wpred" = errs_wpred, 
+                "err.spec" = errs_spec, 
+                "err.nuc" = errs_nuc, 
+                "Y.mean" = apply(Y, 2, mean), 
+                "X.mean" = apply(X, 2, mean),
+                "Y.sd" = apply(Y, 2, sd), 
+                "X.sd" = apply(X, 2, sd),
+                "lambda.vec" = lambda.vec, 
+                "lam.min" = lam.min,
+                "standardize" = standardize)
+    class(fit) <- "MSRL"
+    return(fit)
+}
     
 
-    MSRL.predict <- function(Xnew, fit, lambda = NULL){
+MSRL.predict <- function(Xnew, fit, lambda = NULL){
 
-        if(is.null(lambda)){
-            lambda <- fit$lam.min
-            if(is.null(fit$lam.min)){
-                stop('No tuning parameters selected by CV')
-            }
-
-        } 
-        
-        lam.ind <- which(fit$lambda.vec == lambda)
-        p <- length(fit$X.mean)
-        q <- length(fit$Y.mean)
-        if(!fit$standardize){
-            beta.vec <- fit$beta[,lam.ind]
-            beta.mat <- matrix(beta.vec, byrow=FALSE, nrow=p, ncol=q)
-        } else {
-            beta.vec <- fit$beta[,lam.ind]
-            beta.mat <- tcrossprod(1/fit$X.sd, rep(1, q))*matrix(beta.vec, byrow=FALSE, nrow=p, ncol=q)
-        }
-        
-        # --- get intercept     
-        B0 <- fit$Y.mean - crossprod(beta.mat, fit$X.mean)
-        if(dim(Xnew)[1] > 1){
-            preds <- tcrossprod(rep(1, dim(Xnew)[1]), B0) + tcrossprod(Xnew, t(beta.mat))
-        } else {
-            preds <- B0 + crossprod(beta.mat, Xnew)
+    if(is.null(lambda)){
+        lambda <- fit$lam.min
+        if(is.null(fit$lam.min)){
+            stop('No tuning parameters selected by CV')
         }
 
-        return(list("pred" = preds, "beta0" = B0, "beta" = beta.mat))
-
+    } 
+    
+    lam.ind <- which(fit$lambda.vec == lambda)
+    p <- length(fit$X.mean)
+    q <- length(fit$Y.mean)
+    if(!fit$standardize){
+        beta.vec <- fit$beta[,lam.ind]
+        beta.mat <- matrix(beta.vec, byrow=FALSE, nrow=p, ncol=q)
+    } else {
+        beta.vec <- fit$beta[,lam.ind]
+        beta.mat <- tcrossprod(1/fit$X.sd, rep(1, q))*matrix(beta.vec, byrow=FALSE, nrow=p, ncol=q)
+    }
+    
+    # --- get intercept     
+    B0 <- fit$Y.mean - crossprod(beta.mat, fit$X.mean)
+    if(dim(Xnew)[1] > 1){
+        preds <- tcrossprod(rep(1, dim(Xnew)[1]), B0) + tcrossprod(Xnew, t(beta.mat))
+    } else {
+        preds <- B0 + crossprod(beta.mat, Xnew)
     }
 
+    return(list("pred" = preds, "beta0" = B0, "beta" = beta.mat))
 
-    MSRL.coef <- function(fit, lambda = NULL){
+}
 
-        if(is.null(lambda)){
-            lambda <- fit$lam.min
-            if(is.null(fit$lam.min)){
-                stop('No tuning parameters selected by CV')
-            }
-        } 
 
-        lam.ind <- which(fit$lambda.vec == lambda)
-        p <- length(fit$X.mean)
-        q <- length(fit$Y.mean)
-        if(!fit$standardize){
-            beta.vec <- fit$beta[,lam.ind]
-            beta.mat <- matrix(beta.vec, byrow=FALSE, nrow=p, ncol=q)
-        } else {
-            beta.vec <- fit$beta[,lam.ind]
-            beta.mat <- tcrossprod(1/fit$X.sd, rep(1, q))*matrix(beta.vec, byrow=FALSE, nrow=p, ncol=q)
+MSRL.coef <- function(fit, lambda = NULL){
+
+    if(is.null(lambda)){
+        lambda <- fit$lam.min
+        if(is.null(fit$lam.min)){
+            stop('No tuning parameters selected by CV')
         }
-        # --- get intercept     
-        B0 <- fit$Y.mean - crossprod(beta.mat, fit$X.mean)
-        return(list("beta0" = B0, "beta" = beta.mat))
+    } 
+
+    lam.ind <- which(fit$lambda.vec == lambda)
+    p <- length(fit$X.mean)
+    q <- length(fit$Y.mean)
+    if(!fit$standardize){
+        beta.vec <- fit$beta[,lam.ind]
+        beta.mat <- matrix(beta.vec, byrow=FALSE, nrow=p, ncol=q)
+    } else {
+        beta.vec <- fit$beta[,lam.ind]
+        beta.mat <- tcrossprod(1/fit$X.sd, rep(1, q))*matrix(beta.vec, byrow=FALSE, nrow=p, ncol=q)
     }
+    # --- get intercept     
+    B0 <- fit$Y.mean - crossprod(beta.mat, fit$X.mean)
+    return(list("beta0" = B0, "beta" = beta.mat))
+}
 
     
