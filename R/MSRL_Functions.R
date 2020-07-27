@@ -2,7 +2,7 @@
 # Complete set of functions to fit MSRL 
 # --------------------------------------------------------
 
-AccPG <- function(y, x, beta, lam1, weight, tol, maxiter = 1e4, quiet = FALSE){
+AccPG <- function(y, x, beta, lam1, weight, tol, max.iter = 1e4, quiet = FALSE){
     
     # ------------------------------------
     # Set initializing values
@@ -15,7 +15,7 @@ AccPG <- function(y, x, beta, lam1, weight, tol, maxiter = 1e4, quiet = FALSE){
     alphakm1 <- 1
     k.iter <- 1
     t <- 10 # step size 
-    obj <- rep(0, maxiter)
+    obj <- rep(0, max.iter)
 
     # ------------------------------------
     # Get initial objective function value
@@ -104,7 +104,7 @@ AccPG <- function(y, x, beta, lam1, weight, tol, maxiter = 1e4, quiet = FALSE){
             # print results if not quiet 
             # -------------------------------
             if(!quiet){
-                if(k.iter %% 10 == 0){
+                if(k.iter %% 50 == 0){
                     cat(k.iter, ": r1 = ", t1, "r2 = ", t2, "\n")
                 }
             }
@@ -168,7 +168,7 @@ NN_ADMM <- function(Y, X, Gamma, Omega, beta, lambda, weight,
         # beta update 
         # ---------------------------------------
         H <- crossprod(X, Y + rho^(-1)*Gammakm1 - Omegak - Xbetakm1)
-        betak <-    pmax(abs(betakm1 + H/eta) - wlam/(rho*eta), 0)*sign(betakm1 + H/eta)
+        betak <-   pmax(abs(betakm1 + H/eta) - wlam/(rho*eta), 0)*sign(betakm1 + H/eta)
         Xbetakm1 <- crossprod(t(X),  betak)
   
         # -------------------------------------
@@ -177,10 +177,10 @@ NN_ADMM <- function(Y, X, Gamma, Omega, beta, lambda, weight,
         Gammak <- Gammakm1 + ((1 + sqrt(5))/2)*rho*(Y - Xbetakm1 - Omegak)
 
         r1 <- sum((Y - Xbetakm1 - Omegak)^2); 
-        s1 <- sum(crossprod(rho*X, Gammak - Gammakm1)^2)
+        s1 <- sum(crossprod(rho*X, Omegakm1 - Omegak)^2)
 
         if(!quiet){
-            if(k.iter%%500 == 0){
+            if(k.iter%%50 == 0){
                 cat("r1 = ", r1, "; s1 = ", s1, "\n")
             }
         }
@@ -295,15 +295,16 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
         # -------------------------------------------------
         if(!ADMM.temp){
             
+            #cat("Using PGD", "\n")
             temp <- try(AccPG(y = y, x = x, beta = beta.old, lam1 = lambda.vec[kk], weight = weight, 
-                    tol = tol, maxiter = 1e4, quiet=inner.quiet), silent=TRUE)
+                    tol = tol, max.iter = 1e4, quiet=inner.quiet), silent=TRUE)
 
             if(class(temp) == "try-error"){
-
+                #cat("Using ADMM", "\n")
                 ADMM.temp <- TRUE
                 temp <- NN_ADMM(Y = y, X = x, Gamma = Gamma, Omega = Omega, 
                             beta = beta.old, lambda = lambda.vec[kk], weight = weight, 
-                              ol = tol, maxiter = 1e4, rho = .0001, eta = 1.00001*xtxeig, quiet=inner.quiet)
+                              tol = tol, maxiter = 1e4, rho = .0001, eta = 1.00001*xtxeig, quiet=inner.quiet)
   
                 Gamma <- temp$Gamma
                 Omega <- temp$Omega
@@ -431,7 +432,7 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
                 if(!ADMM){
                     
                     temp <- try(AccPG(y = y.inner, x = x.inner, beta = beta.old, lam1 = lambda.vec[kk], weight = weight, 
-                            tol = tol, maxiter = 1e4, quiet=inner.quiet), silent=TRUE)
+                            tol = tol, max.iter = 1e4, quiet=inner.quiet), silent=TRUE)
 
                     if(class(temp) == "try-error"){
 
