@@ -36,14 +36,14 @@ AccPG <- function(y, x, beta, lam1, weight, tol, max.iter = 1e4, quiet = FALSE){
         # -----------------------------
         # Step 2
         # -----------------------------
-        temp <-  svd(y - crossprod(t(x), theta))
+        temp <- svd(y - crossprod(t(x), theta))
         inneriter <- TRUE
         t <- 1
           
           # --------------------------------
           # line search loop 
           # --------------------------------
-          while(inneriter){
+          while (inneriter) {
           
             keep <- crossprod(x, tcrossprod(temp$u, temp$v))
             keep1 <- (t/sqrt(n))*keep + theta
@@ -53,13 +53,13 @@ AccPG <- function(y, x, beta, lam1, weight, tol, max.iter = 1e4, quiet = FALSE){
             h <- (1/(sqrt(n)))*sum(inner.temp$d) + lam1*sum(abs(weight*betakp1))
             g <- (1/(sqrt(n)))*(sum(temp$d) - sum(keep*(betakp1 - theta))) + (1/(2*t))*sum((betakp1 - theta)^2) + lam1*sum(abs(weight*betakp1))
           
-            if(h < g){
+            if (h < g) {
                 inneriter <- FALSE
             } else {
                 t <- t/2
             }
 
-            if(t < 1e-10){
+            if (t < 1e-10) {
                 inneriter <- FALSE
                 outeriter <- FALSE
             }
@@ -69,7 +69,7 @@ AccPG <- function(y, x, beta, lam1, weight, tol, max.iter = 1e4, quiet = FALSE){
         # -----------------------------
         # Enforce monotonicity
         # -----------------------------
-        if(h < h.old){
+        if (h < h.old) {
             h.old <- h
         } else {
             betakp1 <- betak
@@ -78,7 +78,7 @@ AccPG <- function(y, x, beta, lam1, weight, tol, max.iter = 1e4, quiet = FALSE){
         inner.temp <- svd(y - crossprod(t(x), betakp1))
         betakm1 <- betak
         betak <- betakp1
-        if(sum(inner.temp$d < .001) > 0){
+        if (sum(inner.temp$d < .001) > 0) {
             stop("Switching to ADMM -----> ")
         }
 
@@ -86,7 +86,7 @@ AccPG <- function(y, x, beta, lam1, weight, tol, max.iter = 1e4, quiet = FALSE){
         alphak <- (1 + sqrt(1 + 4*alphakm1^2))/2
         obj[k.iter] <- h.old
 
-        if(k.iter > 5){
+        if (k.iter > 5) {
 
             # --------------------------------
             # check convergence 
@@ -94,7 +94,7 @@ AccPG <- function(y, x, beta, lam1, weight, tol, max.iter = 1e4, quiet = FALSE){
             keep <- (1/sqrt(n))*crossprod(x, tcrossprod(inner.temp$u, inner.temp$v))
             t1 <- sum((abs(keep) > wlam)[which(betak == 0)])/sum(betak == 0)
 
-            if(any(betak!=0)){
+            if (any(betak!=0)) {
                 t2 <- max(abs(keep - wlam*sign(betak))[which(betak != 0)])
             } else {
                 t2 <- 0
@@ -103,18 +103,18 @@ AccPG <- function(y, x, beta, lam1, weight, tol, max.iter = 1e4, quiet = FALSE){
             # --------------------------------
             # print results if not quiet 
             # -------------------------------
-            if(!quiet){
-                if(k.iter %% 50 == 0){
+            if (!quiet) {
+                if (k.iter %% 50 == 0) {
                     cat(k.iter, ": r1 = ", t1, "r2 = ", t2, "\n")
                 }
             }
 
-            if(t1 == 0 && t2 < tol){
+            if (t1 == 0 && t2 < tol) {
                 outeriter <- FALSE
             }
 
-            if(obj[k.iter - 3] - obj[k.iter] < tol/abs(h.orig)){
-                if(!quiet){
+            if (obj[k.iter - 3] - obj[k.iter] < tol/abs(h.orig)) {
+                if (!quiet) {
                     cat("# ------------------------------ ", "\n")
                 }
                 outeriter <- FALSE
@@ -124,8 +124,8 @@ AccPG <- function(y, x, beta, lam1, weight, tol, max.iter = 1e4, quiet = FALSE){
 
         k.iter <- k.iter + 1
 
-        if(k.iter > max.iter){
-            if(!quiet){
+        if (k.iter > max.iter) {
+            if (!quiet) {
                 cat("# ------------------------------ ", "\n")
             }
             outeriter <- FALSE
@@ -179,25 +179,25 @@ NN_ADMM <- function(Y, X, Gamma, Omega, beta, lambda, weight,
         r1 <- sum((Y - Xbetakm1 - Omegak)^2); 
         s1 <- sum(crossprod(rho*X, Omegakm1 - Omegak)^2)
 
-        if(!quiet){
-            if(k.iter%%50 == 0){
+        if (!quiet) {
+            if (k.iter%%50 == 0) {
                 cat("r1 = ", r1, "; s1 = ", s1, "\n")
             }
         }
 
-        if(r1 < sqrt(n)*tol & s1 < tol){
+        if (r1 < sqrt(n)*tol & s1 < tol) {
             iterating = FALSE;
         }
 
         # ------------------------------
         # update step size
         # ------------------------------
-        if(k.iter%%10 == 0){
-            if(r1 > 10*s1){
+        if (k.iter%%10 == 0) {
+            if (r1 > 10*s1) {
                 rho = rho*2;
             }
         
-            if(s1 > 10*r1){
+            if (s1 > 10*r1) {
                 rho = rho/2;
             }
         }
@@ -231,7 +231,7 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
     # --------------------------------
     # construct weight matrices
     # --------------------------------
-    if(weighted){
+    if (weighted) {
         weight.mat <- rep(1, dim(X)[2])%*%t(apply(Y, 2, sd))
         weight <- weight.mat/max(weight.mat)
     } else {
@@ -241,7 +241,7 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
     # -----------------------------------------
     # standardize 
     # -----------------------------------------
-    if(!standardize){
+    if (!standardize) {
 
         x <- X - rep(1, n)%*%t(apply(X, 2, mean))
         xtx <- crossprod(x)
@@ -260,11 +260,11 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
     # -------------------------------------------
     # get candidate tuning parameters
     # -------------------------------------------
-    if(is.null(lambda.vec)){
+    if (is.null(lambda.vec)) {
 
         lambda.vec <- rep(0, length=nlambda)
         temp <- svd(y)
-        if(sum(weight==0) == 0){
+        if (sum(weight==0) == 0) {
             lambda.max <- 1.01*(1/sqrt(n))*max(abs(crossprod(x, temp$u%*%t(temp$v)))*weight^(-1))
         } else {
             lambda.max <- 1.01*(1/sqrt(n))*max(abs(crossprod(x, temp$u%*%t(temp$v))))
@@ -293,13 +293,13 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
         # -------------------------------------------------
         # Compute using PGD if possible
         # -------------------------------------------------
-        if(!ADMM.temp){
+        if (!ADMM.temp) {
             
             #cat("Using PGD", "\n")
             temp <- try(AccPG(y = y, x = x, beta = beta.old, lam1 = lambda.vec[kk], weight = weight, 
                     tol = tol, max.iter = 1e4, quiet=inner.quiet), silent=TRUE)
 
-            if(class(temp) == "try-error"){
+            if (class(temp) == "try-error") {
                 #cat("Using ADMM", "\n")
                 ADMM.temp <- TRUE
                 temp <- NN_ADMM(Y = y, X = x, Gamma = Gamma, Omega = Omega, 
@@ -311,7 +311,7 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
                 beta.old <- temp$beta
                 beta.full[,kk] <- c(beta.old)
                 sparsity.mat[kk] <- sum(beta.old!=0)
-                if(!quiet){
+                if (!quiet) {
                     cat(kk, ": non-zero = ", sum(beta.old!=0), "\n")
                     cat("# ------------------------------ ", "\n")
                 }
@@ -321,7 +321,7 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
                 beta.old <- temp$beta
                 beta.full[,kk] <- c(beta.old)
                 sparsity.mat[kk] <- sum(beta.old!=0)
-                if(!quiet){
+                if (!quiet) {
                     cat(kk, ": non-zero = ", sum(beta.old!=0), "\n")
                     cat("# ------------------------------ ", "\n")
                 }
@@ -339,7 +339,7 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
             beta.old <- temp$beta
             beta.full[,kk] <- c(beta.old)
             sparsity.mat[kk] <- sum(beta.old!=0)
-            if(!quiet){
+            if (!quiet) {
                 cat(kk, ": non-zero = ", sum(beta.old!=0), "\n")
                 cat("# ------------------------------ ", "\n")
              }
@@ -353,7 +353,7 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
     # -----------------------------------------
     # Perform cross-validation 
     # -----------------------------------------
-    if(!is.null(nfolds)){
+    if (!is.null(nfolds)) {
 
         # -----------------------------------------
         # preload metrics for cross-validation 
@@ -367,7 +367,7 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
 
         for(k in 1:nfolds){
 
-            if(!standardize){
+            if (!standardize) {
                 
                 # --- center X and Y
                 ntrain <- dim(X[-cv.index[[k]],])[1]
@@ -385,7 +385,7 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
                 beta.old <- matrix(0, nrow=p, ncol=q)
                 xtxeig <- max(eigen(xtx.inner)$val)
 
-                if(weighted){
+                if (weighted) {
                     weight.mat <- rep(1, dim(X)[2])%*%t(apply(y.inner, 2, mad))
                     weight <- weight.mat/max(weight.mat)
                 } else {
@@ -411,7 +411,7 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
                 beta.old <- matrix(0, nrow=p, ncol=q)
                 xtxeig <- max(eigen(xtx.inner)$val)
 
-                if(weighted){
+                if (weighted) {
                     weight.mat <- rep(1, dim(X)[2])%*%t(apply(y.inner, 2, sd))
                     weight <- weight.mat/max(weight.mat)
                 } else {
@@ -429,12 +429,12 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
                 # -------------------------------------------------
                 # Compute using PGD if possible
                 # -------------------------------------------------
-                if(!ADMM){
+                if (!ADMM) {
                     
                     temp <- try(AccPG(y = y.inner, x = x.inner, beta = beta.old, lam1 = lambda.vec[kk], weight = weight, 
                             tol = tol, max.iter = 1e4, quiet=inner.quiet), silent=TRUE)
 
-                    if(class(temp) == "try-error"){
+                    if (class(temp) == "try-error") {
 
                         ADMM <- TRUE
                         temp <- NN_ADMM(Y = y.inner, X = x.inner, Gamma = Gamma, Omega = Omega, 
@@ -470,7 +470,7 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
                 # cat(kk, "\n")
             }
           
-            if(!quiet){
+            if (!quiet) {
                 cat("# ------------------------------ ", "\n")
                 cat("Through CV fold", k, "\n")
                 cat("# ------------------------------ ", "\n")
@@ -484,7 +484,7 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
         errs_nuc <- NULL
     }
 
-    if(!is.null(errs_pred)){
+    if (!is.null(errs_pred)) {
         inds <- which(rowSums(errs_pred) == min(rowSums(errs_pred)), arr.ind = TRUE)
         lam.min <- lambda.vec[inds]
     } else {
@@ -511,9 +511,9 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
 
 MSRL.predict <- function(Xnew, fit, lambda = NULL){
 
-    if(is.null(lambda)){
+    if (is.null(lambda)) {
         lambda <- fit$lam.min
-        if(is.null(fit$lam.min)){
+        if (is.null(fit$lam.min)) {
             stop('No tuning parameters selected by CV')
         }
 
@@ -522,7 +522,7 @@ MSRL.predict <- function(Xnew, fit, lambda = NULL){
     lam.ind <- which(fit$lambda.vec == lambda)
     p <- length(fit$X.mean)
     q <- length(fit$Y.mean)
-    if(!fit$standardize){
+    if (!fit$standardize) {
         beta.vec <- fit$beta[,lam.ind]
         beta.mat <- matrix(beta.vec, byrow=FALSE, nrow=p, ncol=q)
     } else {
@@ -532,7 +532,7 @@ MSRL.predict <- function(Xnew, fit, lambda = NULL){
     
     # --- get intercept     
     B0 <- fit$Y.mean - crossprod(beta.mat, fit$X.mean)
-    if(dim(Xnew)[1] > 1){
+    if (dim(Xnew)[1] > 1) {
         preds <- tcrossprod(rep(1, dim(Xnew)[1]), B0) + tcrossprod(Xnew, t(beta.mat))
     } else {
         preds <- B0 + crossprod(beta.mat, Xnew)
@@ -545,9 +545,9 @@ MSRL.predict <- function(Xnew, fit, lambda = NULL){
 
 MSRL.coef <- function(fit, lambda = NULL){
 
-    if(is.null(lambda)){
+    if (is.null(lambda)) {
         lambda <- fit$lam.min
-        if(is.null(fit$lam.min)){
+        if (is.null(fit$lam.min)) {
             stop('No tuning parameters selected by CV')
         }
     } 
@@ -555,7 +555,7 @@ MSRL.coef <- function(fit, lambda = NULL){
     lam.ind <- which(fit$lambda.vec == lambda)
     p <- length(fit$X.mean)
     q <- length(fit$Y.mean)
-    if(!fit$standardize){
+    if (!fit$standardize) {
         beta.vec <- fit$beta[,lam.ind]
         beta.mat <- matrix(beta.vec, byrow=FALSE, nrow=p, ncol=q)
     } else {
