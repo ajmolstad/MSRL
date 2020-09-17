@@ -2,7 +2,7 @@
 # Complete set of functions to fit MSRL 
 # --------------------------------------------------------
 
-AccPG <- function(y, x, beta, lam1, weight, tol, max.iter = 1e4, quiet = FALSE){
+AccPG <- function(y, x, beta, lam1, weight, tol, max.iter = 1e4, quiet = FALSE) {
     
     # ------------------------------------
     # Set initializing values
@@ -26,7 +26,7 @@ AccPG <- function(y, x, beta, lam1, weight, tol, max.iter = 1e4, quiet = FALSE){
     outeriter <- TRUE
     wlam <- weight*lam1
 
-    while(outeriter){
+    while(outeriter) {
     
         # -----------------------------
         # Step 1
@@ -132,12 +132,12 @@ AccPG <- function(y, x, beta, lam1, weight, tol, max.iter = 1e4, quiet = FALSE){
         }
     }
 
-  return(list("beta" = betakp1))
+    return(list("beta" = betakp1))
 
 }
 
 NN_ADMM <- function(Y, X, Gamma, Omega, beta, lambda, weight, 
-                    tol, maxiter, rho, eta, quiet = FALSE){
+                    tol, maxiter, rho, eta, quiet = FALSE) {
   
     # -------------------------------------
     # Set initial values for warm starting
@@ -156,7 +156,7 @@ NN_ADMM <- function(Y, X, Gamma, Omega, beta, lambda, weight,
     k.iter <- 1
     wlam <- weight*lam
     
-    while(iterating){
+    while(iterating) {
   
         # --------------------------------------
         # Omega update 
@@ -217,7 +217,7 @@ NN_ADMM <- function(Y, X, Gamma, Omega, beta, lambda, weight,
 
 MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
         weighted = FALSE, standardize = FALSE, ADMM = FALSE, nfolds = NULL, 
-        delta = .01, tol = 1e-8, quiet = TRUE, inner.quiet=TRUE){
+        delta = .01, tol = 1e-8, quiet = TRUE, inner.quiet=TRUE) {
 
         
     # ---------------------------------
@@ -271,7 +271,7 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
         }
 
         lambda.min <- delta*lambda.max
-        for(kk in 1:nlambda){
+        for(kk in 1:nlambda) {
             lambda.vec[kk] <- lambda.max^((nlambda-kk)/(nlambda-1))*lambda.min^((kk-1)/(nlambda-1))
         }
         
@@ -288,7 +288,7 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
     Omega <- tcrossprod(temp$u, temp$v)
     xtxeig <- max(eigen(xtx)$val)
 
-    for(kk in 1:length(lambda.vec)){
+    for(kk in 1:length(lambda.vec)) {
 
         # -------------------------------------------------
         # Compute using PGD if possible
@@ -365,7 +365,7 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
         errs_spec <- matrix(0, nrow=length(lambda.vec), ncol=nfolds)
         errs_nuc <- matrix(0, nrow=length(lambda.vec), ncol=nfolds)
 
-        for(k in 1:nfolds){
+        for(k in 1:nfolds) {
 
             if (!standardize) {
                 
@@ -424,7 +424,7 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
             temp <- svd(y.inner)
             Omega <- tcrossprod(temp$u, temp$v)
 
-            for(kk in 1:length(lambda.vec)){
+            for(kk in 1:length(lambda.vec)) {
 
                 # -------------------------------------------------
                 # Compute using PGD if possible
@@ -492,24 +492,24 @@ MSRL.cv <- function(X, Y, nlambda, lambda.vec = NULL,
     }
 
     fit <-  list("beta" = beta.full, 
-                "sparsity.mat" = sparsity.mat,
-                "err.pred" = errs_pred, 
-                "err.wpred" = errs_wpred, 
-                "err.spec" = errs_spec, 
-                "err.nuc" = errs_nuc, 
-                "Y.mean" = apply(Y, 2, mean), 
-                "X.mean" = apply(X, 2, mean),
-                "Y.sd" = apply(Y, 2, sd), 
-                "X.sd" = apply(X, 2, sd),
-                "lambda.vec" = lambda.vec, 
-                "lam.min" = lam.min,
-                "standardize" = standardize)
+        "sparsity.mat" = sparsity.mat,
+        "err.pred" = errs_pred, 
+        "err.wpred" = errs_wpred, 
+        "err.spec" = errs_spec, 
+        "err.nuc" = errs_nuc, 
+        "Y.mean" = apply(Y, 2, mean), 
+        "X.mean" = apply(X, 2, mean),
+        "Y.sd" = apply(Y, 2, sd), 
+        "X.sd" = apply(X, 2, sd),
+        "lambda.vec" = lambda.vec, 
+        "lam.min" = lam.min,
+        "standardize" = standardize)
     class(fit) <- "MSRL"
     return(fit)
 }
     
 
-MSRL.predict <- function(Xnew, fit, lambda = NULL){
+MSRL.predict <- function(Xnew, fit, lambda = NULL) {
 
     if (is.null(lambda)) {
         lambda <- fit$lam.min
@@ -543,7 +543,7 @@ MSRL.predict <- function(Xnew, fit, lambda = NULL){
 }
 
 
-MSRL.coef <- function(fit, lambda = NULL){
+MSRL.coef <- function(fit, lambda = NULL) {
 
     if (is.null(lambda)) {
         lambda <- fit$lam.min
