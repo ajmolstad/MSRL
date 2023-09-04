@@ -1,5 +1,5 @@
 # MSRL
-An R package for fitting the multivariate square-root lasso estimator as described in the article [New insights for the multivariate square-root lasso](https://www.jmlr.org/papers/volume23/20-064/20-064.pdf). 
+An R package for fitting the multivariate square-root lasso estimator as described in the article [New insights for the multivariate square-root lasso](https://www.jmlr.org/papers/volume23/20-064/20-064.pdf). Please contact [amolstad@umn.edu](mailto:amolstad@umn.edu) with any comments or questions. 
 
 ### Citation instructions
 If you use any of the software from this repository, please cite the article linked above. The bibtex entry is
