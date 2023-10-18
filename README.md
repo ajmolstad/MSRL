@@ -19,5 +19,5 @@ If you use any of the software from this repository, please cite the article lin
 Please visit [this example page](https://ajmolstad.github.io/docs/MSRL_Example.html) for details on implementation and usage. 
 
 ### Updates
-In October 2023, an R package including both lasso and group-lasso penalties will be released. 
+In January 2024, an R package including both lasso and group-lasso penalties will be released. 
 
