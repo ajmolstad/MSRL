@@ -1,6 +1,7 @@
 \name{MSRL.cv}
 \alias{MSRL.cv}
 \title{Fit the multivariate square-root lasso.}
+\description{A function for performing cross-validation to select tuning parameters for the multivariate square-root lasso. }
 \usage{
 MSRL.cv(X, Y, nlambda, lambda.vec = NULL,
     weighted = FALSE, standardize = FALSE, ADMM = FALSE, nfolds = NULL, 
@@ -16,7 +17,7 @@ MSRL.cv(X, Y, nlambda, lambda.vec = NULL,
   \item{standardize}{Should predictors be standardized for model fitting?}
   \item{ADMM}{Determines whether the algorithm starts using ADMM or APG. By default, if \eqn{n > q}, will start with APG and move to ADMM when appropriate.}
   \item{nfolds}{Number of folds for cross-validation.}
-  \item{delta}{Ratio of maximum to minimum candidate tuning parameters. }
+  \item{delta}{Ratio of minimum to maximum candidate tuning parameters. }
   \item{tol}{Convergence tolerance parameter}
   \item{quiet}{Print progress?  }
   \item{quiet}{Print iteration-by-iteration progress? Should be used for diagnostics.}
