@@ -1,6 +1,6 @@
 \name{MSRL.coef}
 \alias{MSRL.coef}
-\title{Extract estimated regression coefficients from the multivariate square-root lasso.}
+\title{Extract estimated regression coefficients from a fitted model}
 \description{A function for extracting regression coefficients along the solution path for the multivariate square-root lasso.}
 \usage{
 MSRL.coef(fit, lambda = NULL)
@@ -12,8 +12,4 @@ MSRL.coef(fit, lambda = NULL)
 \value{
 	\item{beta0}{The estimated intercept at the tuning parameter value \eqn{\lambda}, the third input argument.}
 	\item{beta}{The estimated regression coefficient matrix at the tuning parameter value \eqn{\lambda}, the third input argument.}
-}
-
-\description{
-  Extract estimated regression coefficients from the multivariate square-root lasso.
 }
