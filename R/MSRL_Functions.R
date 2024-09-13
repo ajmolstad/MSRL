@@ -395,7 +395,7 @@ MSRL.cv <- function (X, Y, nlambda, lambda.vec = NULL,
                 xtxeig <- max(eigen(xtx.inner)$val)
 
                 if (weighted) {
-                    weight.mat <- rep(1, dim(X)[2])%*%t(apply(y.inner, 2, mad))
+                    weight.mat <- rep(1, dim(X)[2])%*%t(apply(y.inner, 2, sd))
                     weight <- weight.mat/max(weight.mat)
                 } else {
                     weight <- matrix(1, nrow=p, ncol=q)
@@ -753,7 +753,7 @@ MSRL.cv.omega <- function (X, Y, nlambda, lambda.vec = NULL,
                 xtxeig <- max(eigen(xtx.inner)$val)
 
                 if (weighted) {
-                    weight.mat <- rep(1, dim(X)[2])%*%t(apply(y.inner, 2, mad))
+                    weight.mat <- rep(1, dim(X)[2])%*%t(apply(y.inner, 2, sd))
                     weight <- weight.mat/max(weight.mat)
                 } else {
                     weight <- matrix(1, nrow=p, ncol=q)
