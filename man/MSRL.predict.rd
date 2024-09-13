@@ -1,6 +1,6 @@
 \name{MSRL.predict}
 \alias{MSRL.predict}
-\title{Make predictions using a fitted model}
+\title{Make predictions using the multivariate square-root lasso.}
 \description{A function for making predictions using the multivariate square-root lasso model fit along the solution path.}
 \usage{
 MSRL.predict(Xnew, fit, lambda = NULL)
@@ -16,3 +16,6 @@ MSRL.predict(Xnew, fit, lambda = NULL)
 	\item{beta}{The estimated regression coefficient matrix at the tuning parameter value \eqn{\lambda}, the third input argument.}
 }
 
+\description{
+  Make predictions using the multivariate square-root lasso.
+}

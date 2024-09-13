@@ -1,0 +1,176 @@
+---
+title: "MSRL Example"
+author: "Aaron J. Molstad (amolstad@ufl.edu)"
+date: "6/3/2019"
+output:
+  html_document: default
+  pdf_document: default
+---
+In this document, we provide a short tutorial on how to use the $\texttt{MSRL}$ R package. **If you encounter any errors or strange behavior, please report the issue at https://github.com/ajmolstad/MSRL**. We start by downloading this package from GitHub.
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r load functions, include=FALSE}
+library(Matrix)
+source("~/Documents/GitHub/MSRL/R/MSRL_Functions.R")
+```
+
+```{r githubDL, eval=FALSE}
+install.packages("devtools")
+library(devtools)
+devtools::install_github("ajmolstad/MSRL")
+library(MSRL)
+```
+
+### The multivariate square-root lasso
+The multivariate square-root lasso estimator is defined as
+\begin{equation}\label{eq:MSRL}
+\arg\min_{\beta \in \mathbb{R}^{p \times q}} \left\{ \frac{1}{\sqrt{n}}\|\mathbf{Y} - \mathbf{X}\beta\|_* + \lambda \sum_{j,k}w_{j,k}|\beta_{j,k}|\right\}.
+\end{equation}
+where $\|\cdot\|_*$ is the nuclear norm, i.e., the norm which sums the singular values of its matrix argument, and the $w_{j,k}$ are weights to be defined by the user. Note that here, the $\mathbf{Y}$ and $\mathbf{X}$ in the definition have been centered by their columnwise means (to remove the intercept). The $Y$ and $X$ input into the function should not be centered. The tuning parameter $\lambda >0$ is user specified as well: we provide functions below to help the user determine an appropriate value for $\lambda$. 
+
+
+### Generate data
+To demonstrate how to use the package, we generate some data from Model 1 of the article "Insights and algorithms for the multivariate square-root lasso". 
+```{r generate data, include = TRUE, cache = TRUE}
+sessionInfo()
+# --------------------------------
+# Preliminaries
+# --------------------------------
+set.seed(1)
+p <- 100
+n <- 70
+q <- 20
+ntest <- 100
+
+# --------------------------------
+# Generate predictors
+# --------------------------------
+SigmaX <- matrix(0, nrow=p, ncol=p)
+for(k in 1:p){
+  for(j in 1:p){
+    SigmaX[j,k] <- .5^abs(j-k)
+  }
+}
+diag(SigmaX) <- 1
+eo <- eigen(SigmaX)
+SigmaXsqrt <- eo$vec%*%diag(eo$val^.5)%*%t(eo$vec)
+X <- matrix(rnorm(n*p), nrow=n)%*%SigmaXsqrt
+Xtest <- matrix(rnorm(ntest*p), nrow=ntest)%*%SigmaXsqrt
+# -----------------------------------
+# Generate regression coefficients
+# -----------------------------------
+beta <- matrix(0, nrow=p, ncol=q)
+beta[sample(1:(p*q), floor(p*q)*.04, replace=TRUE)] <- 1
+
+# -------------------------------------
+# Generate responses
+# -------------------------------------
+Sigma <- matrix(0, nrow=q, ncol=q)
+for(k in 1:q){
+  for(j in 1:q){
+    Sigma[j,k] <- .9^abs(j-k)
+  }
+}
+diag(Sigma) <- 1
+eo <- eigen(Sigma)
+Sigmasqrt <- eo$vec%*%diag(eo$val^.5)%*%t(eo$vec)
+Y <- X%*%beta + matrix(rnorm(n*q), nrow=n)%*%Sigmasqrt
+Ytest <- Xtest%*%beta + matrix(rnorm(ntest*q), nrow=ntest)%*%Sigmasqrt
+```
+
+### Model fitting
+First, we show how to fit the model without cross-validation. By setting the argument $\texttt{nfolds = NULL}$. To track progress, we use the argument $\texttt{quiet = FALSE}$. Since $n > q$, we leave $\texttt{ADMM = FALSE}$ -- the function will switch to ADMM automatically if the residual matrix has fewer than $q$ nonzero singular values. 
+```{r fit model example, cache = TRUE, include = TRUE}
+mod1 <- MSRL.cv(X = X, Y = Y, nlambda = 10, standardize = FALSE, ADMM = FALSE, 
+                nfolds = NULL,  weighted = FALSE,  delta = .25, tol = 1e-8, quiet = FALSE,
+                inner.quiet = TRUE)
+```
+
+If we set $\texttt{inner.quiet = FALSE}$ and $\texttt{ADMM = FALSE}$, we also print $r_1$ and $r_2$ defined below. These quantities measure whether the first order conditions are satisfied and will print after every 10 iterations. 
+$$ r_1 = \frac{\sum_{j,k}  1\left(\hat{\beta}_{j,k} = 0 \cap |[X'UV']_{j,k}| \geq \sqrt{n} w_{j,k}\lambda\right) }{\sum_{j,k}  1(\hat{\beta}_{j,k} = 0)},$$
+and 
+$$ r_2 = \max_{(j,k):\hat{\beta_{j,k}} \neq 0} |\frac{1}{\sqrt{n}}[X'UV']_{j,k} - w_{j,k}\lambda {\rm sign}(\hat{\beta}_{j,k})|$$
+where $(U,D,V) = {\rm svd}(Y - X\hat{\beta})$. This argument may be useful if convergence is slow with default settings. We decrease the convergence tolerance to display (slightly) more output for the sake of example. 
+
+```{r fit model innerquiet,cache=TRUE, include = TRUE}
+mod2 <- MSRL.cv(X = X, Y = Y, nlambda = 10, standardize = FALSE, ADMM = FALSE, 
+                nfolds = NULL, weighted = FALSE,   delta = .1, tol = 1e-16, quiet = FALSE,
+                inner.quiet = FALSE)
+```
+Checking the output, we have: 
+```{r, include = TRUE, cache=TRUE}
+str(mod2)
+```
+Note that $\beta$ for all candidate tuning parameters is stored as a sparse matrix -- to extract coefficients, use the $\texttt{MSRL.coef}$ function detailed below. 
+
+### Cross-validation
+Now we set $\texttt{nfolds = 5}$ to perform 5-fold cross-validation.  Note that this actually fits the model $\texttt{nfolds} + 1$ times since it first fits the model to the entire dataset. 
+```{r fit model CV1, include = TRUE, cache=TRUE}
+mod3 <- MSRL.cv(X = X, Y = Y, nlambda = 50, standardize = FALSE, ADMM = FALSE, 
+                nfolds = 5,  weighted = FALSE, delta = .1, tol = 1e-8, quiet = FALSE, 
+                inner.quiet = TRUE)
+```
+
+In the output, there are four different metrics used to measure performance in cross-validation. Let $Y_{-k}$ and $X_{-k}$ be the left-out-fold responses and predictors which have been centered (standardized) based on the left-in-fold data. The metrics are: 
+
+- $\texttt{err.pred}$: squared Frobenius norm prediction error $$\|Y_{-k} - X_{-k} \hat{\beta}_{k}\|_F^2,$$ 
+
+- $\texttt{err.wpred}$: weighted squared Frobenius norm prediction error 
+$$ {\rm tr}\left\{(Y_{-k} - X_{-k}\hat{\beta}_{k})W_{-k}(Y_{-k} - X_{-k}\hat{\beta}_{k})'\right\}$$
+where $W_{-k}$ is a diagonal matrix with the left-out-fold inverse variances along its diagonal. 
+
+- $\texttt{err.nuc}$: nuclear norm prediction error
+$$\|Y_{-k} - X_{-k} \hat{\beta}_{k}\|_*,$$ 
+- $\texttt{err.spec}$: spectral norm prediction error. 
+$$\|Y_{-k} - X_{-k} \hat{\beta}_{k}\|.$$
+
+```{r plot CV output, include = TRUE, cache = TRUE}
+plot(x = log2(mod3$lambda.vec), y = rowMeans(mod3$err.pred), pch=20, 
+     xlab=expression(paste(log[2], "(", lambda,")", sep="")), ylab="CV prediction error")
+abline(v = which.min(rowMeans(mod3$err.pred)), lty=2)
+```
+
+
+### Additional options
+
+The other options work as follows: 
+
+- $\texttt{standardize}$ is a TRUE/FALSE argument set to FALSE as default. When false, the $X$ used in model fitting is 
+$$ \mathbf{X} = X - 1_n \bar{X}',$$
+where $\bar{X} = n^{-1}\sum_{i=1}^n x_i$. When TRUE, the $X$ used for model fitting is standardized: 
+$$ \mathbf{X} = (X - 1_n \bar{X}')/(1_n \bar{\sigma}_X'),$$
+where $\bar{\sigma}_X$ is the $p$-dimensional standard deviations for each of the $p$ predictors. All necessary adjustments are made inside the cross-validation function, in addition to both the prediction and coefficient functions. 
+
+- $\texttt{weighted}$ is a TRUE/FALSE argument. We do not recommend standardizing the response variables (and do not provide an option to do so in our software) so to adjust the level of penalty applied to $\beta$, we include this option. When $\texttt{weighted = FALSE}$, all $w_{j,k} = 1$; when $\texttt{weighted = TRUE}$, all $$w_{j,k} = \frac{1}{\bar{\sigma_{y}}_{k}},$$
+where $\bar{\sigma_{y}}_{k}$ is the marginal standard deviation for the $k$th response variable. 
+
+- $\texttt{delta}$ is the parameter $<1$ which specifies the range of candidate tuning parameters we consider. That is, we automatically select $\lambda_{\rm max}$ (based on the first order conditions), and we consider a range of candidat etuning parameters going from $\lambda_{\rm min}$ to $\lambda_{\rm max}$ where
+$$\lambda_{\rm min}  = \delta \lambda_{\rm max}.$$
+
+- $\texttt{tol}$ is the convergence tolerance. A smaller tolerance leads to a more exact solution.  If the default does not seem to be performing well, we recommend model fitting with $\texttt{inner.quiet = FALSE}$ to track progress and adjusting $\texttt{tol}$ as necessary.
+
+### Predictions 
+We can obtain predicted values for a new set of predictors. As a default tuning parameter after cross-validation, we use the tuning parmaeter which minimizes the square Frobenius norm prediction error.  
+```{r prediction, include=TRUE, cache=TRUE}
+fitted.preds <- MSRL.predict(Xnew = Xtest, fit = mod3, lambda = mod3$lam.min)
+str(fitted.preds)
+fitted.preds$pred[1:10, 1:10]
+plot(fitted.preds$pred[,1], Ytest[,1], pch=20, ylab="True response", 
+     xlab="Predicted response", main="Response variable #1")
+abline(0,1, lty=2)
+```
+
+
+Finally, we can also extract both the regression coefficient matrix and intercept. We display the coefficient matrix below with nonzero entries highlighted in grey.  
+```{r getCoefs, cache=TRUE, include = TRUE}
+fitted.coefs <- MSRL.coef(fit = mod3, lambda = mod3$lambda.vec[12])
+str(fitted.coefs) 
+temp <- bquote("Estimate of "~beta~"with"~lambda~ "="~.(round(mod3$lambda.vec[12], 4)))
+image(t(abs(fitted.coefs$beta)), main=temp, xlab="Responses", ylab="Predictors", col = grey(100:0/100))
+image(t(abs(beta)), main=expression(paste("True ", beta)),  xlab="Responses", ylab="Predictors", col = grey(100:0/100))
+
+```
+
+
